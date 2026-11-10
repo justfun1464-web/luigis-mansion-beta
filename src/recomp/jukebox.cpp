@@ -17,6 +17,7 @@
 // docs/UNUSED_CONTENT.md "Jukebox"); a track reached only through a computed id could be missed.
 #include "port/install.h"
 #include "recomp/audio.h"
+#include "recomp/beta_music.h"
 #include "recomp/guest_util.h"
 #include "recomp/hle.h"
 #include "recomp/rarc.h"
@@ -377,6 +378,7 @@ HLE(Jaq_SetSeqData_Limit) {
     if (c.r[6] == 0) {
         fixSequence(c.r[4]);
         audio::noteSequenceData(c.r[4], c.r[5]);
+        beta_music::noteSequence(c.r[4], c.r[5]);  // LM BETA: replacement music
     }
     callOriginal(c, "Jaq_SetSeqData_Limit");
 }

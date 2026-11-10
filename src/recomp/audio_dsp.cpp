@@ -11,6 +11,7 @@
 // microcode addresses.
 #include "port/settings.h"
 #include "recomp/audio.h"
+#include "recomp/beta_music.h"
 #include "recomp/guest_util.h"
 #include "recomp/hle.h"
 
@@ -143,6 +144,7 @@ struct Voice {
     bool loggedFx = false;  // LM_AUDIO_LOG: filters/delays reported once per start
     u32 stopSubframes = 0, stopVolume = 0;  // LM_AUDIO_LOG: force-stop fade length
     VoiceKind kind = VoiceKind::Unknown;  // music or effect (volume sliders), since the voice started
+    bool betaMuted = false;  // LM BETA: its sequence is replaced by a file (beta_music.cpp), since the voice started
     u32 kindKey = 0;  // LM_AUDIO_KIND_LOG: what was last reported for the voice
 };
 
@@ -538,7 +540,17 @@ void mixVoice(u32 i) {
                 }
             }
         }
-        const float g = music ? a.musicVolume : a.sfxVolume;
+        float g = music ? a.musicVolume : a.sfxVolume;
+        // LM BETA: replacement music (beta_music.cpp) mutes the sequence or stream it replaces.
+        if (type == kSrcRamRing) {
+            beta_music::noteRingVoice();
+            if (beta_music::muteStreams()) g = 0;
+        } else if (music && type != kSrcRam) {
+            const u32 track = voiceSequence(i);
+            const u32 data = gu::inMem1(track) ? rd32(track) : 0;
+            if (data) v.betaMuted = beta_music::muteSequence(data);  // a released track keeps the last answer
+            if (v.betaMuted) g = 0;
+        }
         if (g < 0.999f) {
             const s32 q = s32(std::clamp(g, 0.0f, 1.0f) * 32768.0f);
             for (u32 n = 0; n < kSubframe; n++) buf[n] = s16((s32(buf[n]) * q) >> 15);

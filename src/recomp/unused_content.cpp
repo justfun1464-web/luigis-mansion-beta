@@ -55,6 +55,12 @@ HLE(fn_8003CFC0) {
         if (sGbhCamOn) sGbhClockOn = false;
         log("[unused] Game Boy Horror camera %s", sGbhCamOn ? "on" : "off");
     }
+    // LM BETA: the E3 clock/radar is the Game Boy Horror's default screen (as in the E3 2001 demo).
+    static bool sClockDefaulted = false;
+    if (!sClockDefaulted && port::settings().enhancements.gbhClock) {
+        sClockDefaulted = true;
+        if (!sGbhCamOn) sGbhClockOn = true;
+    }
     // Cut E3 clock/radar screen (GBH mode 1): D-pad Left; exclusive with the camera.
     if (!port::settings().enhancements.gbhClock && !envFlag("LM_GBH_CLOCK")) {
         sGbhClockOn = false;

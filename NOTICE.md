@@ -12,3 +12,10 @@ written with AI assistance must not be submitted upstream to lm-decomp.
 
 This project contains no Nintendo assets or code from the retail executable.
 Users must provide their own disc dump.
+
+## Luigi's Mansion BETA (this fork)
+
+| Path | Source | License |
+|------|--------|---------|
+| `src/recomp/third_party/stb_vorbis.c` | [nothings/stb](https://github.com/nothings/stb) | Public domain (Unlicense) or MIT |
+| `src/recomp/third_party/dr_mp3.h`, `dr_wav.h`, `dr_flac.h` | [mackron/dr_libs](https://github.com/mackron/dr_libs) | Public domain (Unlicense) or MIT-0 |

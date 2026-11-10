@@ -11,6 +11,7 @@
 #include "port/settings.h"
 #include "recomp/hidden_mansion.h"
 #include "recomp/audio.h"
+#include "recomp/beta_music.h"
 #include "recomp/hle.h"
 #include "recomp/skip.h"
 
@@ -355,6 +356,9 @@ void outPushGuestBlock(u32 addr, u32 bytes) {
             o[7] = sr * gain;
         }
     }
+
+    // LM BETA: replacement music files (beta_music.cpp), at the console's rate like the game's mix.
+    beta_music::mix(buf.data(), frames, ch, gain);
 
     // Resampling. Without a device, captures use 48 kHz.
     const int devRate = sStream && sDevRate.load() > 0 ? sDevRate.load() : 48000;

@@ -1,6 +1,7 @@
 // Developer tools: leftover debug displays, map warps and the info overlay (model viewer:
 // model_viewer.cpp). Addresses are US GLME01 (VA() maps them to the European game's, see
 // recomp/version.h); how each was found: docs/UNUSED_CONTENT.md.
+#include "recomp/beta.h"
 #include "recomp/dev_tools.h"
 
 #include "port/install.h"
@@ -193,6 +194,7 @@ HLE(fn_8000C188) {
     rooms::onMapSetup();
     coop::onMapSetup(c);  // unused 2-player mode: latched per map (coop.cpp)
     unused2::onMapSetup(c);  // second unused-content batch (unused2.cpp)
+    beta::onMapSetup(c);     // LM BETA features (beta.cpp)
     callOriginal(c, "fn_8000C188");
 }
 
@@ -397,6 +399,7 @@ HLE(LMChangeFrameBuffer__Fv) {
         }
 
     unused2::onFrame(c);
+    beta::onFrame(c);  // LM BETA features (beta.cpp)
     sillyworld::onFrame(c);
     viewer::guestFrame(c);
     callOriginal(c, "LMChangeFrameBuffer__Fv");

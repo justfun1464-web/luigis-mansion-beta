@@ -1,6 +1,7 @@
 // HLE: DVD file system, on top of Aurora's disc reader. Synchronous reads block the calling
 // thread; async reads run on a host "drive" thread and complete as interrupts.
 #include "recomp/beta_files.h"
+#include "recomp/beta_music.h"
 #include "recomp/hidden_mansion.h"
 #include "recomp/room_swap.h"
 #include "recomp/unused_maps.h"
@@ -277,6 +278,7 @@ HLE(DVDOpen) {
     if (dvdLog())
         log("[dvd] open %s as file %08X (thread %08X prio %d%s, lr %08X)", path, c.r[4], sched::currentGuest(),
             sched::currentGuest() ? sched::priority(sched::currentGuest()) : -1, sched::inIrq() ? " in irq" : "", c.lr);
+    beta_music::noteFileOpen(path);  // LM BETA: streamed tracks (.afc) can be replaced
     if (const s32 e = ovEntry(path); e >= 0) {
         c.r[3] = openOverlay(c.r[4], e);
         return;

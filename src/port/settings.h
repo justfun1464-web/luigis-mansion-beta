@@ -20,7 +20,7 @@ struct VideoSettings {
     // Presentation frame rate. 30 = the game's own rate, drawn directly (no interpolation);
     // above 30 the frames in between are interpolated (src/recomp/interp.*). matchDisplay
     // uses the refresh rate of the display the window is on instead of targetFps.
-    int targetFps = 30;         // kMinFps..kMaxFps
+    int targetFps = 60;         // kMinFps..kMaxFps  // LM BETA default
     bool unlimitedFps = false;  // interpolated, as fast as the PC can (no frame-rate cap or schedule)
     bool matchDisplay = false;
     AspectMode aspect = AspectMode::Auto;
@@ -96,19 +96,19 @@ struct EnhancementSettings {
     int hiddenMansionJp = 0;       // 1: the Japanese Hidden Mansion rules as the F1 default (beats hiddenMansionPal)
     int mansionVersion = 0;        // F1 fallback without the lab menu: 0 the base's own, 1 USA, 2 Japan, 3 PAL
     int palLanguage = 1;           // PAL game only: 1 English, 2 German, 3 French, 4 Spanish, 5 Italian (next launch)
-    bool gbhClock = false;         // cut E3 GBH clock/radar screen, toggled in game with D-pad Left
+    bool gbhClock = true;  // LM BETA default         // cut E3 GBH clock/radar screen, toggled in game with D-pad Left
     bool gbhTracker = false;       // unused GBH ghost tracker, cycled in game with D-pad Down (off/far/close)
-    bool gbhCamera = false;        // unused Game Boy Horror live camera, toggled in game with D-pad Up (docs/UNUSED_CONTENT.md)
-    bool betaSkybox = false;            // unused sky in the game archive (iwamoto/vrbox) on map 2
+    bool gbhCamera = true;  // LM BETA default        // unused Game Boy Horror live camera, toggled in game with D-pad Up (docs/UNUSED_CONTENT.md)
+    bool betaSkybox = true;  // LM BETA default            // unused sky in the game archive (iwamoto/vrbox) on map 2
     bool heartDoor = false;             // unused heart door (type 07) on Chauncey's room
     bool starDoor = false;              // unused star door (type 08) on the Twins' room
-    bool betaMapLuigi = false;          // unused full Luigi model on the Game Boy Horror map
+    bool betaMapLuigi = true;  // LM BETA default          // unused full Luigi model on the Game Boy Horror map
     bool unusedPortraitModels = false;  // each ghost's own model in the Portrificationizer scene
     bool earlyLuigi = false;            // unused early Luigi model /model/luige.szp (src/recomp/early_luigi.cpp)
-    bool airWaterNozzles = false;       // unused wpair/wpwater Poltergust nozzles (src/recomp/nozzles.cpp)
-    bool earlyPoltergust = false;       // E3 2001 Poltergust body /model/vbody.szp (src/recomp/unused_models.cpp)
-    bool earlyBogmire = false;          // early Bogmire model /model/shadow.szp (src/recomp/unused_models.cpp)
-    bool greenToad = false;             // Toads use kinopio2's green texture set (src/recomp/unused_models.cpp)
+    bool airWaterNozzles = true;  // LM BETA default       // unused wpair/wpwater Poltergust nozzles (src/recomp/nozzles.cpp)
+    bool earlyPoltergust = true;  // LM BETA default       // E3 2001 Poltergust body /model/vbody.szp (src/recomp/unused_models.cpp)
+    bool earlyBogmire = true;  // LM BETA default          // early Bogmire model /model/shadow.szp (src/recomp/unused_models.cpp)
+    bool greenToad = true;  // LM BETA default             // Toads use kinopio2's green texture set (src/recomp/unused_models.cpp)
     bool twoPlayer = false;             // unused 2-player mode, P2 on controller port 2 (src/recomp/coop.cpp)
     bool coopImprovements = false;      // co-op fixes on top of the 2-player mode (src/recomp/coop_fixes.cpp)
     bool earlyGhostLighting = false;  // "Ghost shading: Beta" = the known beta-shading cheat (fn_800581E8 channel setup)
@@ -132,7 +132,7 @@ struct EnhancementSettings {
 // original game is unchanged until one is moved. They apply in every mansion and variant
 // (docs/GAMEPLAY_OPTIONS.md).
 struct GameplaySettings {
-    bool palDarknessEverywhere = false;  // PAL Hidden Mansion lighting (ambient x0.2) in every mansion
+    bool palDarknessEverywhere = true;  // LM BETA default  // PAL Hidden Mansion lighting (ambient x0.2) in every mansion
     float ambientScale = 1.0f;           // room ambient light multiplier, 0.05..1.5 (composes with the above)
     float damageScale = 1.0f;            // damage Luigi takes, 0..5
     float healthScale = 1.0f;            // Luigi's starting and maximum health, 0.25..5
@@ -240,8 +240,8 @@ struct WorldLightSettings {
 enum class EnhancedPreset { Low, Medium, High, Ultra, Custom };
 
 struct EnhancedLightingSettings {
-    bool enabled = false;
-    EnhancedPreset preset = EnhancedPreset::High;
+    bool enabled = true;  // LM BETA default (GTX 1650 class GPU)
+    EnhancedPreset preset = EnhancedPreset::Medium;  // LM BETA default (GTX 1650 class GPU)
     // The game's own GX lights (room lights, flashlight, specular) evaluated per pixel.
     bool perPixelLighting = true;
     // Flashlight cone per pixel with a smooth penumbra.
@@ -276,7 +276,7 @@ struct EnhancedLightingSettings {
     // Realistic flashlight (Aurora 0196; replaces the volumetric beam while on): light scattering
     // through the air against the flashlight's shadow map (shadow shafts), reflector-shaped
     // footprint with inverse-square falloff, dust motes, the game's cone mesh hidden.
-    int realisticFlashlight = 2;       // 0 off, 1 medium, 2 high, 3 ultra
+    int realisticFlashlight = 1;  // LM BETA default (GTX 1650 class GPU)       // 0 off, 1 medium, 2 high, 3 ultra
     float beamDensity = 1.0f;          // 0..3: haze in the air
     float beamDust = 1.0f;             // 0..2: dust motes in the beam
     // Glow around bright light sources (HUD excluded).
@@ -299,12 +299,12 @@ struct EnhancedLightingSettings {
 struct Unused2Settings {
     bool playAsMario = false;      // the player uses the unused bmario model (play_as_mario.cpp)
     bool marioP2 = false;          // 2-player mode: player 2 is Mario
-    bool borderedView = false;     // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
+    bool borderedView = true;  // LM BETA default     // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
     bool poisonState = false;      // poison mushroom poisons (doku_* animations, slow health loss) instead of shrinking
     float poisonDamage = 25.0f;    // total health lost, 1..100
     float poisonSeconds = 5.0f;    // over this many seconds, 1..20
-    bool crawlFear = false;        // scared from behind -> the unused crawling-fear state
-    bool overheat = false;         // vacuum overheat meter (cut feature)
+    bool crawlFear = true;  // LM BETA default        // scared from behind -> the unused crawling-fear state
+    bool overheat = true;  // LM BETA default         // vacuum overheat meter (cut feature)
     float overheatFillSeconds = 20.0f;  // continuous vacuuming until the Poltergust overheats, 5..120
     float overheatCoolSeconds = 30.0f;  // full meter back to empty while idle, 5..120
     float overheatBlowCool = 3.0f;      // cooling speed multiplier while blowing air (L), 1..10
