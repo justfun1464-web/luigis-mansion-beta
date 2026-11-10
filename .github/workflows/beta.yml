@@ -1,12 +1,12 @@
 # Luigi's Mansion BETA: Windows build of this fork.
-# A pushed tag "beta-*" builds the Windows package and publishes it as a GitHub Release with
-# the same name. The configure/build logs are pushed to the branch "ci-logs" (success or
+# A push to the branch "build" builds the Windows package and publishes it as a GitHub
+# Release named beta-<beta/VERSION>-<run number>. The configure/build logs are pushed to the branch "ci-logs" (success or
 # failure) so the build can be checked without the Actions log viewer.
 name: Beta build
 
 on:
   push:
-    tags: ['beta-*']
+    branches: ['build']
   workflow_dispatch:
 
 permissions:
@@ -27,6 +27,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Version
+        shell: pwsh
+        run: |
+          $v = (Get-Content beta/VERSION -Raw).Trim()
+          "BETA_TAG=beta-$v-${{ github.run_number }}" >> $env:GITHUB_ENV
       - name: Ninja
         run: pip install "ninja==${{ env.NINJA_VERSION }}"
       - uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756  # v1
@@ -53,7 +58,7 @@ jobs:
       - name: Package
         shell: pwsh
         run: |
-          $tag = "${{ github.ref_name }}"
+          $tag = "$env:BETA_TAG"
           $name = "LuigisMansionBETA-$tag-windows-x64"
           cmake --install build/windows-clang --prefix "out/$name"
           if ($LASTEXITCODE) { throw "cmake --install failed" }
@@ -67,18 +72,17 @@ jobs:
           Get-FileHash -Algorithm SHA256 "out/$name.zip"
           "PKG=out/$name.zip" >> $env:GITHUB_ENV
       - name: Release
-        if: startsWith(github.ref, 'refs/tags/')
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "${{ github.ref_name }}" "$env:PKG" --title "Luigi's Mansion BETA ${{ github.ref_name }}" --notes "Automatic build of ${{ github.sha }}." --prerelease
+          gh release create "$env:BETA_TAG" "$env:PKG" --target "${{ github.sha }}" --title "Luigi's Mansion BETA $env:BETA_TAG" --notes "Automatic build of ${{ github.sha }}." --prerelease
       - name: Logs to ci-logs branch
         if: always()
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Continue'
-          $tag = "${{ github.ref_name }}"
+          $tag = "$env:BETA_TAG"
           $status = "${{ job.status }}"
           New-Item -ItemType Directory -Force logs-out | Out-Null
           if (Test-Path configure.log) { Copy-Item configure.log "logs-out/configure.log" }
