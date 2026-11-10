@@ -1514,6 +1514,10 @@ State state() {
 }
 
 void startupCheck() {
+    if (true) {  // LM BETA: never look for the normal port's releases
+        ulog("LM BETA: update checks are off in this edition");
+        return;
+    }
     if (!port::settings().updates.checkAtStartup) {
         ulog("startup check off (F1 > Game)");
         return;
@@ -1534,6 +1538,10 @@ void checkNow() {
     {
         std::lock_guard lk(sM);
         if (sBusy) return;
+        // LM BETA: the official updater would replace this fork with the normal port.
+        sState.phase = Phase::CheckFailed;
+        sState.message = "Updates are off in Luigi's Mansion BETA.";
+        return;
         sState.phase = Phase::Checking;
         sState.message = "Checking...";
         sLater = false;

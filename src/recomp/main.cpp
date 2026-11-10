@@ -213,7 +213,7 @@ int main(int argc, char* argv[]) {
     port::recovery::openRunLog();
 
     AuroraConfig config{};
-    config.appName = "Luigi's Mansion Recompiled";
+    config.appName = "Luigi's Mansion BETA";
     config.logCallback = &logCallback;
     port::loadSettings();
     // Start-up recovery (docs/SETUP.md "When the game does not start"): after a start that failed,

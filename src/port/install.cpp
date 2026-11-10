@@ -99,8 +99,8 @@ namespace fs = std::filesystem;
 
 // The product was called "Luigi's Mansion PC" up to 1.0.1; its folders are moved to the new
 // name on the first start (docs/SETUP.md "What lives where").
-constexpr const char* kFolderName = "Luigi's Mansion Recompiled";
-constexpr const char* kOldFolderName = "Luigi's Mansion PC";
+constexpr const char* kFolderName = "Luigi's Mansion BETA";  // LM BETA: own folder, never the normal port's
+constexpr const char* kOldFolderName = "Luigi's Mansion BETA (old)";  // LM BETA: no migration from the normal port
 
 std::string u8(const fs::path& p) {
     const auto s = p.u8string();
@@ -190,7 +190,7 @@ fs::path sysDir(Kind, bool create) {
     if (!base) return fs::path(L".");
     static const bool sMigrated = (migrateOldFolder(base), true);
     (void)sMigrated;
-    fs::path dir = fs::path(base) / L"Luigi's Mansion Recompiled";
+    fs::path dir = fs::path(base) / L"Luigi's Mansion BETA";
     std::error_code ec;
     if (create) fs::create_directories(longPath(dir), ec);
     return dir;

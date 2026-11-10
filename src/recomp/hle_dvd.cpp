@@ -1,5 +1,6 @@
 // HLE: DVD file system, on top of Aurora's disc reader. Synchronous reads block the calling
 // thread; async reads run on a host "drive" thread and complete as interrupts.
+#include "recomp/beta_files.h"
 #include "recomp/hidden_mansion.h"
 #include "recomp/room_swap.h"
 #include "recomp/unused_maps.h"
@@ -40,26 +41,32 @@ bool destOk(u32 dest, u32 size, const char* what, u32 lr) {
 }
 
 // Host-served files: leftover-room visits (room_swap.cpp), the rebuilt unused maps 7/8
-// (unused_maps.cpp), then the PAL Hidden Mansion overlay.
+// (unused_maps.cpp), the PAL Hidden Mansion overlay, then the BETA edition's loose files
+// (beta_files.cpp: <program folder>/beta/files). The rebuilds above read the BETA files too
+// (rarc::readDisc), so they start from the modded data.
 s32 ovEntry(const char* path) {
     s32 e = rooms::overlayEntry(path);
     if (e < 0) e = unused2::overlayEntry(path);
     if (e < 0) e = unused_maps::overlayEntry(path);
-    return e >= 0 ? e : hm::overlayEntry(path);
+    if (e < 0) e = hm::overlayEntry(path);
+    return e >= 0 ? e : beta_files::overlayEntry(path);
 }
 bool ovIs(s32 e) {
-    return rooms::isOverlayEntry(e) || unused2::isOverlayEntry(e) || unused_maps::isOverlayEntry(e) || hm::isOverlayEntry(e);
+    return rooms::isOverlayEntry(e) || unused2::isOverlayEntry(e) || unused_maps::isOverlayEntry(e) ||
+           hm::isOverlayEntry(e) || beta_files::isOverlayEntry(e);
 }
 u32 ovLength(s32 e) {
     if (rooms::isOverlayEntry(e)) return rooms::overlayLength(e);
     if (unused2::isOverlayEntry(e)) return unused2::overlayLength(e);
     if (unused_maps::isOverlayEntry(e)) return unused_maps::overlayLength(e);
+    if (beta_files::isOverlayEntry(e)) return beta_files::overlayLength(e);
     return hm::overlayLength(e);
 }
 s32 ovRead(s32 e, void* dst, s32 len, s32 off) {
     if (rooms::isOverlayEntry(e)) return rooms::overlayRead(e, dst, len, off);
     if (unused2::isOverlayEntry(e)) return unused2::overlayRead(e, dst, len, off);
     if (unused_maps::isOverlayEntry(e)) return unused_maps::overlayRead(e, dst, len, off);
+    if (beta_files::isOverlayEntry(e)) return beta_files::overlayRead(e, dst, len, off);
     return hm::overlayRead(e, dst, len, off);
 }
 

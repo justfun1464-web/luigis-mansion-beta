@@ -414,7 +414,7 @@ bool run(const Options& opts, LaunchInfo& launch) {
         // Menu size (ui_scale.cpp; setup's Auto: 600 lines = 100%), font rasterized at that size.
         const float scale = recomp::ui::scale();
         ImGui::Dummy(ImVec2(0, 12 * scale));
-        ImGui::Text("Luigi's Mansion Recompiled");
+        ImGui::Text("Luigi's Mansion BETA (based on Luigi's Mansion Recompiled)");
         ImGui::Separator();
         if (screen == Screen::Pick) {
             ImGui::TextWrapped("This port runs your own copy of Luigi's Mansion. Choose your disc image (ISO or RVZ). "

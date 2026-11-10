@@ -345,7 +345,7 @@ struct SillyLuigiSettings {
 
 // Self-updater (F1 > Game > Updates; src/port/update.cpp, docs/SETUP.md "Updates").
 struct UpdateSettings {
-    bool checkAtStartup = true;  // look for a newer GitHub release in the background at startup
+    bool checkAtStartup = false;  // LM BETA: off (updater disabled in this edition)  // look for a newer GitHub release in the background at startup
     std::string skipVersion;     // release tag the player chose "Skip this version" for ("v1.2")
 };
 

@@ -1,5 +1,6 @@
 // Archive helpers for host-built disc files (see rarc.h).
 #include "recomp/rarc.h"
+#include "recomp/beta_files.h"
 
 #include <dolphin/dvd.h>
 
@@ -98,6 +99,7 @@ void nodeType(u8* out, const std::string& name, bool root) {
 }  // namespace
 
 Bytes readDisc(const char* path) {
+    if (Bytes b; beta_files::readFile(path, b)) return b;  // LM BETA: modded file first
     DVDFileInfo fi{};
     if (!DVDOpen(path, &fi)) return {};
     Bytes buf((fi.length + 31) & ~31u);
