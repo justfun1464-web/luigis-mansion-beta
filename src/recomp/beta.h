@@ -15,7 +15,8 @@ bool meterSkipHeart();           // ... its heart draw: skip?
 bool meterSkipNumber(Ctx& c);    // ... its number draw: skip? (records position, value, alpha)
 void meterEnd(Ctx& c);           // ... and ends: draws the BETA meter in its place
 void hudBegin(Ctx& c);           // in-game HUD starts (cloth frame, scare overlay)
-void titleDraw(Ctx& c);          // title screen drawn (pink glow)
+bool titleGlowOn();              // the E3 title glow is on (USA game)
+void titleDraw(Ctx& c);          // title screen: pink glow behind the logo
 bool scareOn();                  // the scare overlay option is on
 void onStartle(Ctx& c, u32 luigi);  // a ghost startled Luigi from behind (message 2 accepted)
 void hudFrame(Ctx& c);           // once per game frame

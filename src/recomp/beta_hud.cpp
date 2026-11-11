@@ -280,14 +280,17 @@ void hudBegin(Ctx& c) {
     }
 }
 
+bool titleGlowOn() { return opts().titleGlow && ver::usa(); }
+
 void titleDraw(Ctx& c) {
-    if (!opts().titleGlow || !loadAll(c)) return;
+    if (!loadAll(c)) return;
     const float t = float(skip::guestFrames()) * 0.035f;
-    const int a = int(70.0f + 30.0f * std::sin(t));
+    const int a = int(150.0f + 50.0f * std::sin(t));
     const int ext = sideExtent();
-    // a wide soft glow behind the logo's height, and a wash over the whole screen
-    quad(c, sGlow, -ext - 60, -160, 760 + 2 * ext, 640, 0xFF3CB4FFu, a / 2);
-    quad(c, sGlow, 60, 10, 520, 300, 0xFF64C8FFu, a);
+    // behind the logo: a wide pink haze and a brighter core
+    quad(c, sGlow, -ext - 80, -60, 800 + 2 * ext, 560, 0xFF40B0FFu, a / 2);
+    quad(c, sGlow, 30, 60, 580, 300, 0xFF60C8FFu, a);
+    quad(c, sGlow, 140, 120, 360, 180, 0xFFA0E0FFu, a * 2 / 3);
 }
 
 bool scareOn() { return opts().scareFx && !ver::jpn(); }
@@ -365,10 +368,13 @@ HLE(fn_8003E3D0) {
     beta::hudBegin(c);
     callOriginal(c, "fn_8003E3D0");
 }
-// Title screen.
+// Title screen. TitleScene::draw is the title picture (fn_8003AE7C) and then the 2D layer with the
+// logo (fn_80007F90): the glow goes between them, behind the logo.
 HLE(draw__10TitleSceneFv) {
-    callOriginal(c, "draw__10TitleSceneFv");
+    if (!beta::titleGlowOn()) return callOriginal(c, "draw__10TitleSceneFv");
+    gu::call(c, VA(0x8003AE7C));
     beta::titleDraw(c);
+    gu::call(c, VA(0x80007F90));
 }
 
 }  // namespace recomp
