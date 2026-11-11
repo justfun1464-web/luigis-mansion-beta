@@ -1535,7 +1535,7 @@ void visualsTab() {
         sDirty = true;
         applyWindowSettings();
     }
-    ImGui::SetItemTooltip("The game window fills the whole screen.");
+    ImGui::SetItemTooltip("The game window fills the whole screen. F11 or Alt+Enter switches it at any time.");
     sDirty |= recomp::menu::Checkbox("VSync", &v.vsync);
     ImGui::SetItemTooltip("Frames wait for the display's refresh: no tearing, but the frame rate is limited to\n"
                           "the refresh rate. Applies on the next launch.%s",
@@ -2010,6 +2010,14 @@ void handleEvent(const SDL_Event& ev) {
     if (recomp::controls::handleEvent(ev)) return;  // binding capture owns the key
     if (recomp::dev::handleKey(ev)) return;
     if (ev.type != SDL_EVENT_KEY_DOWN || ev.key.repeat) return;
+    // Luigi's Mansion BETA: F11 or Alt+Enter switches between fullscreen and a window (saved).
+    if (ev.key.key == SDLK_F11 || (ev.key.key == SDLK_RETURN && (ev.key.mod & SDL_KMOD_ALT))) {
+        auto& v = port::settings().video;
+        v.fullscreen = !v.fullscreen;
+        applyWindowSettings();
+        port::saveSettings();
+        return;
+    }
     if (ev.key.key == SDLK_F1) sOpen = !sOpen;
     else if (ev.key.key == SDLK_ESCAPE && sOpen) sOpen = false;
     if (!sOpen && sDirty) {
