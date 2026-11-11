@@ -21,6 +21,8 @@
 #   - myths: the Safari Hunter (Safari Room), a passage under the well into the unused statue
 #     halls (maps 5 and 7) and the lantern hall (map 8), where Dr. Gad waits
 #   - E3-style room name cards
+#   - Space World 2000 moments: the ghosts' card game at the Billiards Room's little table, the
+#     ring of ghosts circling Luigi in the Anteroom, the foyer chandelier coming down
 import os
 import re
 import sys
@@ -33,7 +35,9 @@ F_SAFARI = 232      # Safari Hunter seen
 F_WELL = 233        # passage under the well taken
 F_HALLS = 234       # passed the first statue hall (cleared on the way back)
 F_LANTERN = 235     # met Dr. Gad in the lantern hall
-F_WHISPER = [236, 237, 238, 239, 240, 241]  # whispers, in order
+F_WHISPER = [244, 236, 237, 238, 239, 240, 241]  # the Parlor's paintings, then the whispers, in order
+F_POKER = 242       # the card game in the Billiards Room heard
+F_CHAND = 243       # the foyer chandelier came down
 
 ICON_NONE, ICON_GAD, ICON_GHOST, ICON_LUIGI, ICON_BOO, ICON_BOWSER, ICON_MARIO, ICON_TOAD_GREEN, ICON_TOAD_RED = 0, 1, 2, 3, 4, 5, 7, 16, 17
 
@@ -202,6 +206,7 @@ def ghost_voices(events):
 # ---------------------------------------------------------------------------------------------
 # New events (102-106): the event tables have 109 slots (stub code for 102-108).
 WHISPERS = [
+    "Look at him shake! Hee hee!\n...He won't last the night.",  # the Parlor's paintings taunt Luigi
     "...it's so cold in here...",
     "Turn around, Luigi...",
     "We were guests here too, once.",
@@ -326,6 +331,131 @@ LANTERN_SCRIPT = """<MENUOFF>
 """ % (say(ICON_GAD, 0), F_HALLS, F_LANTERN)
 
 
+# Space World 2000 moments (events 107, 108)
+POKER = ["...Read 'em and weep, boys.\nFour aces!",
+         "Four aces?! I've got two\nof 'em right here in my\nsleeve!",
+         "Shhh...! Somebody's at\nthe door...",
+         "Fresh meat! Deal him in!\nHee hee hee!"]
+POKER_SCRIPT = """<ALLSTOP>
+<MENUOFF>
+<LUIGISTOP>
+<WAIT>(20)
+%s
+<ANYKEY>
+%s
+<ANYKEY>
+%s
+<ANYKEY>
+<CAMSHAKE>
+%s
+<ANYKEY>
+<CLOSEWINDOW>(0)
+<FLAGON>(%d)
+<LUIGIFREE>
+<ALLSTART>
+<MENUON>
+<END>
+""" % (say(ICON_GHOST, 0), say(ICON_GHOST, 1), say(ICON_GHOST, 2), say(ICON_GHOST, 3), F_POKER)
+
+CHANDELIER = ["......?!", "Hee hee hee...\nThat one was just to say\nhello. Welcome home, Luigi."]
+CHANDELIER_SCRIPT = """<ALLSTOP>
+<MENUOFF>
+<LUIGISTOP>
+<WAIT>(15)
+<CAMSHAKE>
+<WAIT>(30)
+%s
+<WAIT>(45)
+<CLOSEWINDOW>(0)
+<THUNDERN>(0)(900)(-220)
+<CAMSHAKE>
+<WAIT>(12)
+<THUNDERN>(0)(900)(-220)
+<CAMSHAKE>
+<FLAGON>(%d)
+<WAIT>(40)
+%s
+<ANYKEY>
+<CLOSEWINDOW>(0)
+<LUIGIFREE>
+<ALLSTART>
+<MENUON>
+<END>
+""" % (say(ICON_LUIGI, 0), F_CHAND, say(ICON_GHOST, 1))
+
+
+def path_table(template: bytes, points):
+    """A path (rail) table shaped like `template` (x, y, z and two ints per point)."""
+    t = Jmp(template)
+    row0 = bytes(t.rows[0])
+    t.rows = []
+    for (x, y, z) in points:
+        t.rows.append(bytearray(row0))
+        i = len(t.rows) - 1
+        for k, v in zip(range(3), (x, y, z)):
+            t.set(i, k, v)
+    return t.build()
+
+
+def sw2000(arc):
+    import math
+    en = Jmp(arc.get("jmp/enemyinfo"))
+    ob = Jmp(arc.get("jmp/observerinfo"))
+
+    def enemy_row(src, name, room, group, pos, move=None, path=None):
+        r = en.add_row(src)
+        en.set(r, "name", name)
+        en.set(r, "create_name", group)
+        en.set(r, "room_no", room)
+        for k, v in zip(("pos_x", "pos_y", "pos_z"), pos):
+            en.set(r, k, v)
+        if move is not None:
+            en.set(r, "move_type", move)
+        if path is not None:
+            en.set(r, "path_name", path)
+        return r
+
+    gold = next(r for r in range(en.n_entries) if en.get(r, "room_no") == 39 and en.get(r, "create_name") == "39_1")
+    # Only existing observer rows are changed (no new ones), so the rooms' own wave logic and
+    # their lights-on stay as they are.
+    def observer(room, target):
+        return next(r for r in range(ob.n_entries) if ob.get(r, "room_no") == room and ob.get(r, "string_arg0") == target)
+    # The card game: three ghosts at the little table and its three chairs in the Billiards Room
+    # (room 12), in the group the room spawns when Luigi enters it in the dark (12_99, with its
+    # Speedy Spirit); the dialogue (event 107) when he comes near the table.
+    for name, (x, z) in zip(("yapoo1", "mapoo1", "mopoo1"), ((-800.0, -2830.0), (-920.0, -2580.0), (-680.0, -2570.0))):
+        enemy_row(gold, name, 12, "12_99", (x, 90.0, z), move=0, path="(null)")
+    # The ghost circle: the Anteroom (room 39) opens with six Shy Guy ghosts circling Luigi on a
+    # ring path. Its waves become: circle -> 39_1 -> 39_2 -> 39_3 + 39_4 together -> lights on,
+    # by moving the strings of its existing observers one step.
+    cx, cy, cz, rad = -20.0, 640.0, -3330.0, 260.0
+    ring = [(cx + rad * math.sin(2 * math.pi * k / 12), cy, cz - rad * math.cos(2 * math.pi * k / 12)) for k in range(12)]
+    arc.put("path/beta_circle", path_table(arc.get("path/heypo_60_1"), ring))
+    for k, name in enumerate(("heypo3", "heypo4", "heypo5", "heypo6", "heypo7", "heypo8")):
+        enemy_row(gold, name, 39, "39_c", ring[2 * k], move=6, path="beta_circle")
+    for r in range(en.n_entries):
+        if en.get(r, "room_no") == 39 and en.get(r, "create_name") == "39_4":
+            en.set(r, "create_name", "39_3")
+    o_entry, o_12, o_23, o_34 = observer(39, "39_1"), observer(39, "39_2"), observer(39, "39_3"), observer(39, "39_4")
+    o_end = next(r for r in range(ob.n_entries) if ob.get(r, "room_no") == 39 and ob.get(r, "cond_string_arg0") == "39_4")
+    ob.set(o_entry, "string_arg0", "39_c")
+    ob.set(o_12, "cond_string_arg0", "39_c")
+    ob.set(o_12, "string_arg0", "39_1")
+    ob.set(o_23, "cond_string_arg0", "39_1")
+    ob.set(o_23, "string_arg0", "39_2")
+    ob.set(o_34, "cond_string_arg0", "39_2")
+    ob.set(o_34, "string_arg0", "39_3")
+    ob.set(o_end, "cond_string_arg0", "39_3")
+    arc.put("jmp/enemyinfo", en.build())
+    arc.put("jmp/observerinfo", ob.build())
+    # The chandelier: gone once it came down (event 108).
+    fu = Jmp(arc.get("jmp/furnitureinfo"))
+    for r in range(fu.n_entries):
+        if fu.get(r, "room_no") == 2 and fu.get(r, 1) == "syan":
+            fu.set(r, "disappear_flag", F_CHAND)
+    arc.put("jmp/furnitureinfo", fu.build())
+
+
 # ---------------------------------------------------------------------------------------------
 # Map tables
 def event_row(t, template_row, pos, no, area, eventif, flag=0, disappear=0, stop=1, lock=1, load=0):
@@ -364,17 +494,23 @@ def mansion_map(files, out):
     # vision there (event 46, flag 53) has played
     event_row(t, tmpl, (680.0, -550.0, -5990.0), 105, 160, 5, flag=53, disappear=F_WELL)
     # Whispers, one room after the other (each needs the previous one's flag)
-    spots = [((-370.0, 0.0, -1800.0), 9),      # Dining Room
+    spots = [((100.0, 550.0, -2060.0), 35),    # Parlor: its paintings taunt Luigi (after the E3 scene)
+             ((-370.0, 0.0, -1800.0), 9),      # Dining Room
              ((-2990.0, 0.0, -1790.0), 8),     # Kitchen
              ((2700.0, 0.0, -2070.0), 10),     # Ballroom
              ((-1800.0, 550.0, -2035.0), 34),  # Study
              ((-1770.0, 550.0, -3370.0), 38),  # Wardrobe Room
              ((0.0, 1100.0, -2170.0), 56)]     # Clockwork Room
-    prev = 0
+    prev = 1  # the Parlor scene (event 1) played
     for (pos, _room), flag in zip(spots, F_WHISPER):
         event_row(t, tmpl, pos, 106, 380, 5, flag=prev, disappear=flag, stop=0, lock=0, load=1)
         prev = flag
+    # Space World 2000: the card game (Billiards Room table) and the chandelier (foyer centre,
+    # once Luigi is back from the lab: flag 1 = the Parlor scene played)
+    event_row(t, tmpl, (-800.0, 0.0, -2680.0), 107, 520, 5, disappear=F_POKER)
+    event_row(t, tmpl, (0.0, 0.0, -260.0), 108, 260, 5, flag=1, disappear=F_CHAND)
     arc.put("jmp/eventinfo", t.build())
+    sw2000(arc)
     write(out, path, yay0_compress(arc.build()))
 
 
@@ -571,7 +707,9 @@ def main():
            new_event(files, 14, 103, HALLS_SCRIPT, HALLS),
            new_event(files, 14, 104, LANTERN_SCRIPT, LANTERN),
            new_event(files, 14, 105, WELL_SCRIPT, WELL),
-           new_event(files, 14, 106, whisper_script(), WHISPERS)]
+           new_event(files, 14, 106, whisper_script(), WHISPERS),
+           new_event(files, 14, 107, POKER_SCRIPT, POKER),
+           new_event(files, 14, 108, CHANDELIER_SCRIPT, CHANDELIER)]
     for ev in list(events.values()) + new:
         if ev.changed:
             ev.save(out)

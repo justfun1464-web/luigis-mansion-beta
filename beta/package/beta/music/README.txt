@@ -13,6 +13,7 @@ Deux façons de choisir ce qu'un fichier remplace :
        Demo_Entrance.ogg   l'arrivée devant le manoir
        OyamaLab.ogg        le laboratoire du professeur
        GoodNight.ogg       la fin de partie (« Good night! »)
+       Fishing_Zako.ogg    les combats contre les fantômes ordinaires
        TMansion.ogg        l'ambiance du manoir (flux audio)
        TMOpen.ogg          l'introduction (flux audio)
 

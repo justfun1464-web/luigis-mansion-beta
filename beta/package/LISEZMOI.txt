@@ -8,7 +8,12 @@ Le jeu reste entièrement finissable.
 Lancer : LuigisMansionRecomp.exe (cette copie est portable : tout reste dans ce dossier,
 sous « portable », sans toucher à votre installation 1.1.6 ni à vos sauvegardes).
 Au premier lancement, le jeu prépare son module à partir de votre image disque (US)
-et compile ses shaders : comptez une à deux minutes.
+puis compile ses shaders (« Preparing shaders ») : la première fois, cela peut prendre
+5 à 6 minutes, ne fermez pas le jeu. Les lancements suivants prennent quelques secondes.
+
+Plein écran : le jeu démarre en plein écran. F11 (ou Alt+Entrée) bascule à tout moment
+entre plein écran et fenêtre ; le choix est retenu (aussi dans F1 > Visuals > Fullscreen).
+Si le jeu rame, F1 > Visuals > fréquence d'images à 30 le soulage beaucoup.
 
 F1 ouvre le menu des options. Les options de la bêta sont dans
 Enhancements > Unused content (section « Luigi's Mansion BETA » et le reste du contenu
@@ -32,8 +37,14 @@ Ce qui change
   « BOOOO!!! » du trio, et l'histoire d'origine du professeur (le Dr Elvin Gad, qui
   croyait la maison abandonnée).
 - Le laboratoire restauré à partir de sa version plus ancienne (event26).
-- Des voix de fantômes avec l'icône inutilisée, et quelques légendes d'Internet :
-  à vous de les trouver... (indice : le fond du puits, la salle des trophées à minuit).
+- Des voix de fantômes avec l'icône inutilisée (les tableaux du salon se moquent de
+  Luigi, des murmures d'une pièce à l'autre, des parasites dans les appels du professeur),
+  et quelques légendes d'Internet : à vous de les trouver... (indice : le fond du puits,
+  la salle des trophées à minuit).
+- Moments du Space World 2000 : le lustre du hall qui s'écrase, les fantômes qui
+  jouent aux cartes à la petite table de la salle de billard, et le cercle de fantômes
+  qui tourne autour de Luigi dans l'antichambre.
+- Musique de combat bêta : beta_danger remplace la musique des combats de fantômes.
 
 Musiques bêta
 -------------
