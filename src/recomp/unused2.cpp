@@ -211,8 +211,9 @@ void unusedSection(UnusedGroup group) {
         tip("Luigi's head and his health as a fraction (\"70/100\") in the chrome digits left unused in\n"
             "the game archive, with a spinning coin and the coins Luigi carries above it.");
         sDirty |= recomp::menu::Checkbox("Green cloth border", &u.clothBorder);
-        tip("With the bordered view, the frame around the 3D view is green cloth, and it slides off\n"
-            "during event scenes (the view grows to the whole screen and back).");
+        tip("A green cloth frame around the 3D view, as in the early footage. It slides off during\n"
+            "event scenes and comes back after them. With \"Bordered view\" on, it fills the black\n"
+            "border instead.");
         sDirty |= recomp::menu::Checkbox("Scare effect (BAHHHH!)", &u.scareFx);
         tip("When a ghost startles Luigi, a purple mist rolls over the screen and \"BAHHHH!\" pops up.\n"
             "For 5 seconds his health is held at 50 at most (shown in purple out of 50); what was\n"

@@ -11,8 +11,8 @@
 // - Scare: when a ghost startles Luigi from behind (Luigi message 2) a purple mist rolls over the screen and
 //   "BAHHHH!" pops up; for a few seconds Luigi's health is held at 50 at most (the part above
 //   is given back afterwards) and the meter shows it in purple out of 50.
-// - Cloth border: with the bordered view (patch 50) the frame around the 3D view is green cloth,
-//   and during event scenes it slides off: the view grows to the whole screen and back.
+// - Cloth border: a green cloth frame over the edges of the picture (or filling the bordered
+//   view's black border, patch 50); during event scenes it slides off and comes back after.
 // - Title: a slow pink glow over the title screen, as in the E3 2001 build.
 //
 // Textures drawn for the BETA edition (scare lettering, mist, cloth, glow) are in
@@ -243,10 +243,14 @@ void meterEnd(Ctx& c) {
 void hudBegin(Ctx& c) {
     if (!loadAll(c)) return;
     const int ext = sideExtent();
-    // Cloth frame around the bordered view.
-    if (g_patches && g_patches[50] && opts().clothBorder && sBorderK > 0.001f) {
+    // Cloth frame. Drawn over the edges of the picture, at the edges of the display (Hor+ wide
+    // screens included), so it always meets the 3D view. With the bordered view (patch 50) the
+    // view itself is framed at 40,30 - 600,430 in the 4:3 frame and the cloth fills up to it.
+    if (opts().clothBorder && sBorderK > 0.001f) {
+        const bool framed = g_patches && g_patches[50];
         const int bx = int(40.0f * sBorderK + 0.5f), top = int(30.0f * sBorderK + 0.5f), bottom = int(50.0f * sBorderK + 0.5f);
         const int left = -ext, right = 640 + ext, tile = 64;
+        const int inL = framed ? bx : left + 2 + bx, inR = framed ? 640 - bx : right - 2 - bx;
         auto band = [&](int x0, int y0, int x1, int y1) {
             for (int y = y0; y < y1; y += tile)
                 for (int x = x0; x < x1; x += tile)
@@ -254,8 +258,14 @@ void hudBegin(Ctx& c) {
         };
         band(left, 0, right, top);
         band(left, 480 - bottom, right, 480);
-        band(left, top, bx, 480 - bottom);
-        band(640 - bx, top, right, 480 - bottom);
+        band(left, top, inL, 480 - bottom);
+        band(inR, top, right, 480 - bottom);
+        // a dark seam on the inner edge, like the shadow of the cloth on the picture
+        const u32 sh = 0x000000FFu;
+        quad(c, sCloth, inL, top, 3, 480 - bottom - top, sh, 120);
+        quad(c, sCloth, inR - 3, top, 3, 480 - bottom - top, sh, 120);
+        quad(c, sCloth, inL, top, inR - inL, 3, sh, 120);
+        quad(c, sCloth, inL, 480 - bottom - 3, inR - inL, 3, sh, 120);
     }
     // Scare: purple mist, then the lettering.
     if (sScare.frames > 0 && opts().scareFx) {

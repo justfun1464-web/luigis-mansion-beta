@@ -299,7 +299,7 @@ struct EnhancedLightingSettings {
 struct Unused2Settings {
     bool playAsMario = false;      // the player uses the unused bmario model (play_as_mario.cpp)
     bool marioP2 = false;          // 2-player mode: player 2 is Mario
-    bool borderedView = true;  // LM BETA default     // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
+    bool borderedView = false;  // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
     // Luigi's Mansion BETA (src/recomp/beta_hud.cpp)
     bool betaHud = true;      // Luigi's head + "HP/MAX" in the unused chrome digits + spinning coin counter
     bool clothBorder = true;  // green cloth around the bordered view, sliding off in event scenes
