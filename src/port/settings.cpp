@@ -262,6 +262,7 @@ std::vector<Field> fields() {
         flag("beta", "cloth_border", u.clothBorder),
         flag("beta", "scare", u.scareFx),
         flag("beta", "title_glow", u.titleGlow),
+        flag("beta", "creepy_profiles", u.creepyProfiles),
         flag("unused2", "poison_state", u.poisonState),
         num("unused2", "poison_damage", u.poisonDamage),
         num("unused2", "poison_seconds", u.poisonSeconds),

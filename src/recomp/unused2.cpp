@@ -219,6 +219,9 @@ void unusedSection(UnusedGroup group) {
             "above 50 comes back afterwards.");
         sDirty |= recomp::menu::Checkbox("E3 title glow", &u.titleGlow);
         tip("A slow pink glow over the title screen, as in the E3 2001 build.");
+        sDirty |= recomp::menu::Checkbox("Creepy ghost profiles", &u.creepyProfiles);
+        tip("The Game Boy Horror's profiles of the portrait ghosts are rewritten: the legend of the\n"
+            "\"creepy GBH scans\". Takes effect when the Game Boy Horror next loads them.");
         sDirty |= recomp::menu::Checkbox("Ending pictures of Luigi", &u.endingPictures);
         tip("The ending's rank screen shows one of three unused pictures of Luigi next to its\n"
             "message: sitting with a flower (ranks H to D), one V sign (C, B) or two V signs (A).");

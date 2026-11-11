@@ -8,7 +8,7 @@
 //   (fn_8003FAC0), are skipped while it runs, and their position, value and alpha are used.
 // - Coins: a spinning coin (the Game Boy Horror's treasure list icon list_treasure_01, turned by
 //   narrowing it) with the coins Luigi carries (Luigi +0x12F4) above the health.
-// - Scare: when a ghost startles Luigi (Luigi message 2) a purple mist rolls over the screen and
+// - Scare: when a ghost startles Luigi from behind (Luigi message 2) a purple mist rolls over the screen and
 //   "BAHHHH!" pops up; for a few seconds Luigi's health is held at 50 at most (the part above
 //   is given back afterwards) and the meter shows it in purple out of 50.
 // - Cloth border: with the bordered view (patch 50) the frame around the 3D view is green cloth,
@@ -290,13 +290,20 @@ void titleDraw(Ctx& c) {
     quad(c, sGlow, 60, 10, 520, 300, 0xFF64C8FFu, a);
 }
 
+bool scareOn() { return opts().scareFx && !ver::jpn(); }
+
 void onStartle(Ctx& c, u32 luigi) {
     (void)c;
-    if (!opts().scareFx || !gu::inMem1(luigi)) return;
+    if (!scareOn() || !gu::inMem1(luigi)) return;
     if (sScare.frames > 0 && sScare.actor == luigi) {
         sScare.frames = std::max(sScare.frames, kScareFrames / 2);  // a second scare keeps it going
         return;
     }
+    // at most one scare every 20 s: some rooms startle Luigi again and again
+    static u32 sLast = 0;
+    const u32 now = skip::guestFrames();
+    if (sLast && now - sLast < 600) return;
+    sLast = now;
     sScare = {kScareFrames, kScareFrames, luigi, 0};
     const int hp = s16(rd16(luigi + 0xFC));
     if (hp > kScareMax) {

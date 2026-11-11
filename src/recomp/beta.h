@@ -16,8 +16,11 @@ bool meterSkipNumber(Ctx& c);    // ... its number draw: skip? (records position
 void meterEnd(Ctx& c);           // ... and ends: draws the BETA meter in its place
 void hudBegin(Ctx& c);           // in-game HUD starts (cloth frame, scare overlay)
 void titleDraw(Ctx& c);          // title screen drawn (pink glow)
-void onStartle(Ctx& c, u32 luigi);  // a ghost startled Luigi (message 2 accepted)
+bool scareOn();                  // the scare overlay option is on
+void onStartle(Ctx& c, u32 luigi);  // a ghost startled Luigi from behind (message 2 accepted)
 void hudFrame(Ctx& c);           // once per game frame
+// beta_gbh.cpp: Game Boy Horror ghost profiles rewritten (once per game frame)
+void gbhFrame(Ctx& c);
 bool borderRect(int& x, int& y, int& w, int& h);  // view 0's rectangle with the cloth border
 
 }  // namespace recomp::beta

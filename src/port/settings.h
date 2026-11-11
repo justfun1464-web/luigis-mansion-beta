@@ -305,6 +305,7 @@ struct Unused2Settings {
     bool clothBorder = true;  // green cloth around the bordered view, sliding off in event scenes
     bool scareFx = true;      // "BAHHHH!" + purple mist when a ghost startles Luigi (health held at 50 for 5 s)
     bool titleGlow = true;    // pink glow over the title screen (E3 2001)
+    bool creepyProfiles = true;  // the Game Boy Horror's ghost profiles rewritten (beta_gbh.cpp)
     bool poisonState = false;      // poison mushroom poisons (doku_* animations, slow health loss) instead of shrinking
     float poisonDamage = 25.0f;    // total health lost, 1..100
     float poisonSeconds = 5.0f;    // over this many seconds, 1..20

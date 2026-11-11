@@ -473,13 +473,14 @@ HLE(fn_800AEEA8) {
         return;
     }
     gameplay::callLuigiMessage(c);  // gameplay_hooks.cpp (Luigi's health, recovery hearts)
-    if (id == 2 && c.r[3]) beta::onStartle(c, l);  // Luigi's Mansion BETA: scare overlay (beta_hud.cpp)
-    if (id == 2 && c.r[3] && crawlOn() && gptr(msg)) {
+    // Luigi's Mansion BETA: a startle from behind also starts the scare overlay (beta_hud.cpp).
+    if (id == 2 && c.r[3] && (crawlOn() || beta::scareOn()) && gptr(msg)) {
         const u32 src = gu::call(c, GU_SYM("fn_800AD504"), {rd32(msg + 4), rd32(msg + 8)});
         if (gptr(src)) {
             float d = 0;
             for (int i = 0; i < 3; i += 2) d += (gu::rdf(src + 4 * i) - gu::rdf(l + kPos + 4 * i)) * gu::rdf(l + kFacing + 4 * i);
-            if (d < 0) startPanic(c, l);
+            if (d < 0 && crawlOn()) startPanic(c, l);
+            if (d < 0) beta::onStartle(c, l);
         }
     }
 }
