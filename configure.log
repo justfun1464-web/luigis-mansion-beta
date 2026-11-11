@@ -1,0 +1,370 @@
+-- The C compiler identification is Clang 20.1.8 with MSVC-like command-line
+-- The CXX compiler identification is Clang 20.1.8 with MSVC-like command-line
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/LLVM/bin/clang-cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/LLVM/bin/clang-cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0001-tolerate-tev-texcoord-without-texgen.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0002-dynamic-vertex-array-sizes.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0003-tev-alpha-compare-uses-color-inputs.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0004-cull-all.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0005-capture-and-replay.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0006-postfx-chain.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0008-color-texgen-and-z-textures.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0009-efb-copy-to-ram.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0010-gx-hardware-accuracy.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0011-shadows.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0012-wireframe-override.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0013-pipeline-precache.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0014-indirect-and-copy-format-accuracy.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0015-texcoords-beyond-numtexgens.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0016-enhanced-lighting.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0017-robust-pipeline-cache.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0018-tex-copy-filter.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0019-shadow-look.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0020-stable-light-shadows.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0021-replay-state-slots.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0022-gxend-size-check-in-recording.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0023-extra-light-budget.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0024-character-material.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0025-fire-light-color.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0026-logic-ops.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0027-vivid-full-saturation.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0028-replay-copy-generations.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0029-light-shadow-maps.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0030-interp-fades.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0031-enhanced-lighting-fixes.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0032-forward-ambient-occlusion.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0116-light-attn-zero-terms.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0123-draw-debug-log.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0170-early-z-alpha-test-depth.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0172-su-scale-direct-sampling.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0173-line-minor-axis-expansion.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0174-fifo-inline-debug.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0175-implicit-device-sync.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0176-efb-blend-6bit.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0177-submit-before-present.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0178-sdk-light-init-fixes.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0179-early-z-accuracy-flag.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0180-flipper-hw-details.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0181-fifo-race-debug.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0186-enhanced-lighting-fixes.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0187-enhanced-lighting-fixes-2.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0190-smooth-color-banding.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0191-efb-ram-lock-order.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0192-early-z-split-cache-merge.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0196-realistic-flashlight.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0197-present-timing.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0210-gpu-profile.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0211-enhanced-gpu-cost.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0212-blend6-unseen-resolves.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0213-enhanced-fewer-copies.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0214-precache-enhanced-targets.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0215-gpu-keep-warm.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0216-present-timing-poll.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0217-precache-variants.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0218-draw-probe.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0219-readback-callback-no-dawn.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0220-beam-flashlight-only.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0221-pipeline-skip-log.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0222-efb-ram-guest-copy-hash.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0223-enhanced-prewarm.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0224-gtao-ambient-occlusion.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0225-enhanced-composite-in-main-view.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0226-warm-shader-cache-start.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0227-faster-full-shader-hold.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0229-gx-draw-seq-encoding.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0230-keep-warm-compat-limits.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0231-crash-restart-keeps-caches.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0233-msaa-supported-sample-counts.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0235-fifo-malformed-data-recovery.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0236-activity-reports.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0237-thread-hooks.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0238-imgui-frame-callback.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0250-memory-growth.patch
+-- Applied Aurora patch D:/a/luigis-mansion-beta/luigis-mansion-beta/patches/aurora/0360-texture-dump-and-replacement-stats.patch
+-- aurora: Dawn auto-resolved provider: package
+-- aurora: Fetching prebuilt Dawn package from https://github.com/encounter/dawn/releases/download/v20260807.225922/dawn-windows-amd64.tar.gz
+-- aurora: Fetching abseil-cpp (standalone)
+-- Performing Test ABSL_INTERNAL_AT_LEAST_CXX17
+-- Performing Test ABSL_INTERNAL_AT_LEAST_CXX17 - Success
+-- Performing Test ABSL_INTERNAL_AT_LEAST_CXX20
+-- Performing Test ABSL_INTERNAL_AT_LEAST_CXX20 - Success
+-- Found Threads: TRUE
+-- aurora: SDL3 auto-resolved provider: package
+-- aurora: Fetching prebuilt SDL3 package from https://github.com/encounter/sdl3-build/releases/download/v3.4.10/SDL3-windows-amd64.tar.gz
+-- aurora: Using shared SDL3
+CMake Warning at extern/aurora/extern/CMakeLists.txt:13 (find_package):
+  By not providing "FindxxHash.cmake" in CMAKE_MODULE_PATH this project has
+  asked CMake to find a package configuration file provided by "xxHash", but
+  CMake did not find one.
+
+  Could not find a package configuration file provided by "xxHash" with any
+  of the following names:
+
+    xxHash.cps
+    xxhash.cps
+    xxHashConfig.cmake
+    xxhash-config.cmake
+
+  Add the installation prefix of "xxHash" to CMAKE_PREFIX_PATH or set
+  "xxHash_DIR" to a directory containing one of the above files.  If "xxHash"
+  provides a separate development package or SDK, be sure it has been
+  installed.
+Call Stack (most recent call first):
+  extern/aurora/extern/CMakeLists.txt:51 (aurora_find_package_global)
+
+
+-- aurora: Fetching xxhash
+-- xxHash build type: RelWithDebInfo
+-- Architecture: AMD64
+-- aurora: Fetching fmt
+-- {fmt} version: 12.1.0
+-- Build type: RelWithDebInfo
+-- Performing Test HAS_NULLPTR_WARNING
+-- Performing Test HAS_NULLPTR_WARNING - Success
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- aurora: Fetching zlib
+-- Using CMake version 4.4.5
+-- ZLIB_HEADER_VERSION: 1.3.1
+-- ZLIBNG_HEADER_VERSION: 2.3.3
+-- Arch detected: 'x86_64'
+-- Basearch of 'x86_64' has been detected as: 'x86'
+-- Looking for arm_acle.h
+-- Looking for arm_acle.h - not found
+-- Looking for sys/auxv.h
+-- Looking for sys/auxv.h - not found
+-- Looking for sys/sdt.h
+-- Looking for sys/sdt.h - not found
+-- Looking for unistd.h
+-- Looking for unistd.h - not found
+-- Looking for linux/auxvec.h
+-- Looking for linux/auxvec.h - not found
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of off64_t
+-- Check size of off64_t - failed
+-- Check size of _off64_t
+-- Check size of _off64_t - failed
+-- Check size of __off64_t
+-- Check size of __off64_t - failed
+-- Looking for fseeko
+-- Looking for fseeko - not found
+-- Looking for strerror
+-- Looking for strerror - found
+-- Looking for __cpuid_count
+-- Looking for __cpuid_count - found
+-- Performing Test HAVE_CPUID_MS
+-- Performing Test HAVE_CPUID_MS - Success
+-- Performing Test HAVE_NO_INTERPOSITION
+-- Performing Test HAVE_NO_INTERPOSITION - Failed
+-- Performing Test HAVE_ATTRIBUTE_VISIBILITY_HIDDEN
+-- Performing Test HAVE_ATTRIBUTE_VISIBILITY_HIDDEN - Success
+-- Performing Test HAVE_ATTRIBUTE_VISIBILITY_INTERNAL
+-- Performing Test HAVE_ATTRIBUTE_VISIBILITY_INTERNAL - Success
+-- Performing Test HAVE_ATTRIBUTE_ALIGNED
+-- Performing Test HAVE_ATTRIBUTE_ALIGNED - Success
+-- Performing Test HAVE_BUILTIN_ASSUME_ALIGNED
+-- Performing Test HAVE_BUILTIN_ASSUME_ALIGNED - Success
+-- Performing Test HAVE_BUILTIN_CTZ
+-- Performing Test HAVE_BUILTIN_CTZ - Success
+-- Performing Test HAVE_BUILTIN_CTZLL
+-- Performing Test HAVE_BUILTIN_CTZLL - Success
+-- Performing Test HAVE_PTRDIFF_T
+-- Performing Test HAVE_PTRDIFF_T - Success
+-- Performing Test HAVE_XSAVE_INTRIN
+-- Performing Test HAVE_XSAVE_INTRIN - Success
+-- Performing Test HAVE_SSE2_INTRIN
+-- Performing Test HAVE_SSE2_INTRIN - Success
+-- Performing Test HAVE_SSSE3_INTRIN
+-- Performing Test HAVE_SSSE3_INTRIN - Success
+-- Performing Test HAVE_SSE41_INTRIN
+-- Performing Test HAVE_SSE41_INTRIN - Success
+-- Performing Test HAVE_SSE42_INTRIN
+-- Performing Test HAVE_SSE42_INTRIN - Success
+-- Performing Test HAVE_PCLMULQDQ_INTRIN
+-- Performing Test HAVE_PCLMULQDQ_INTRIN - Success
+-- Performing Test HAVE_AVX2_INTRIN
+-- Performing Test HAVE_AVX2_INTRIN - Success
+-- Performing Test HAVE_AVX512_INTRIN
+-- Performing Test HAVE_AVX512_INTRIN - Success
+-- Performing Test HAVE_AVX512VNNI_INTRIN
+-- Performing Test HAVE_AVX512VNNI_INTRIN - Success
+-- Performing Test HAVE_VPCLMULQDQ_INTRIN
+-- Performing Test HAVE_VPCLMULQDQ_INTRIN - Success
+-- Architecture-specific source files: arch/x86/x86_features.c;arch/x86/chunkset_sse2.c;arch/x86/chorba_sse2.c;arch/x86/compare256_sse2.c;arch/x86/slide_hash_sse2.c;arch/x86/adler32_ssse3.c;arch/x86/chunkset_ssse3.c;arch/x86/chorba_sse41.c;arch/x86/adler32_sse42.c;arch/x86/crc32_pclmulqdq.c;arch/x86/slide_hash_avx2.c;arch/x86/chunkset_avx2.c;arch/x86/compare256_avx2.c;arch/x86/adler32_avx2.c;arch/x86/adler32_avx512.c;arch/x86/chunkset_avx512.c;arch/x86/compare256_avx512.c;arch/x86/adler32_avx512_vnni.c;arch/x86/crc32_vpclmulqdq.c
+-- The following features have been enabled:
+
+ * CMAKE_BUILD_TYPE, Build type: RelWithDebInfo (selected)
+ * XSAVE, Support XSAVE intrinsics using ""
+ * SSSE3_ADLER32, Support SSSE3-accelerated adler32, using "-mssse3"
+ * SSE42_CRC, Support SSE4.2 optimized adler32 hash generation, using "-msse4.2"
+ * PCLMUL_CRC, Support CRC hash generation using PCLMULQDQ, using "-msse4.2 -mpclmul"
+ * AVX2_SLIDEHASH, Support AVX2 optimized slide_hash, using "-mavx2 -mbmi2"
+ * AVX2_CHUNKSET, Support AVX2 optimized chunkset, using "-mavx2 -mbmi2"
+ * AVX2_COMPARE256, Support AVX2 optimized compare256, using "-mavx2 -mbmi2"
+ * AVX2_ADLER32, Support AVX2-accelerated adler32, using "-mavx2 -mbmi2"
+ * AVX512_ADLER32, Support AVX512-accelerated adler32, using "-mavx512f -mavx512dq -mavx512bw -mavx512vl -mbmi2"
+ * AVX512_CHUNKSET, Support AVX512 optimized chunkset, using "-mavx512f -mavx512dq -mavx512bw -mavx512vl -mbmi2"
+ * AVX512_COMPARE256, Support AVX512 optimized compare256, using "-mavx512f -mavx512dq -mavx512bw -mavx512vl -mbmi2"
+ * AVX512VNNI_ADLER32, Support AVX512VNNI adler32, using "-mavx512f -mavx512dq -mavx512bw -mavx512vl -mavx512vnni -mbmi2"
+ * VPCLMUL_CRC, Support CRC hash generation using VPCLMULQDQ, using "-mpclmul -mvpclmulqdq -mavx512f -mavx512f -mavx512dq -mavx512bw -mavx512vl -mbmi2"
+ * WITH_GZFILEOP, Compile with support for gzFile related functions
+ * ZLIB_COMPAT, Compile with zlib compatible API
+ * ZLIB_ALIASES, Compile with zlib compatible CMake targets
+ * WITH_SANITIZER, Enable sanitizer testing support
+ * WITH_OPTIM, Build with optimisation
+ * WITH_NEW_STRATEGIES, Use new strategies
+ * WITH_CRC32_CHORBA, Use optimized CRC32 algorithm Chorba
+ * WITH_RUNTIME_CPU_DETECTION, Build with runtime CPU detection
+ * WITH_SSE2, Build with SSE2
+ * WITH_SSSE3, Build with SSSE3
+ * WITH_SSE41, Build with SSE41
+ * WITH_SSE42, Build with SSE42
+ * WITH_PCLMULQDQ, Build with PCLMULQDQ
+ * WITH_AVX2, Build with AVX2
+ * WITH_AVX512, Build with AVX512
+ * WITH_AVX512VNNI, Build with AVX512 VNNI
+ * WITH_VPCLMULQDQ, Build with VPCLMULQDQ
+
+-- The following REQUIRED packages have been found:
+
+ * Dawn
+ * Threads
+ * SDL3, low level access to audio, keyboard, mouse, joystick, and graphics hardware, <https://www.libsdl.org/>
+
+-- The following features have been disabled:
+
+ * ZLIB_SYMBOL_PREFIX, Publicly exported symbols DO NOT have a custom prefix
+ * BUILD_TESTING, Build test binaries
+ * WITH_GTEST, Build tests using Gtest framework
+ * WITH_FUZZERS, Build test/fuzz
+ * WITH_BENCHMARKS, Build benchmarks using Google Benchmark framework
+ * WITH_BENCHMARK_APPS, Build application benchmarks (currently libpng)
+ * WITH_ALL_FALLBACKS, Build all generic fallback functions
+ * WITH_NATIVE_INSTRUCTIONS, Instruct the compiler to use the full instruction set on this host (gcc/clang -march=native)
+ * WITH_MAINTAINER_WARNINGS, Build with project maintainer warnings
+ * WITH_CODE_COVERAGE, Enable code coverage reporting
+ * WITH_INFLATE_STRICT, Build with strict inflate distance checking
+ * WITH_INFLATE_ALLOW_INVALID_DIST, Build with zero fill for inflate invalid distances
+ * INSTALL_UTILS, Copy minigzip and minideflate during install
+
+-- The following OPTIONAL packages have not been found:
+
+ * absl
+ * xxHash
+ * fmt (required version >= 11)
+ * ZLIB
+ * PkgConfig
+
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- aurora: Fetching libpng
+-- Building for target architecture: amd64
+-- Performing Test HAVE_LD_VERSION_SCRIPT
+-- Performing Test HAVE_LD_VERSION_SCRIPT - Success
+-- Found AWK program: C:/Program Files/Git/usr/bin/gawk.exe
+-- Creating standard configuration
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- aurora: Fetching Freetype
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- Could NOT find BZip2 (missing: BZIP2_LIBRARIES BZIP2_INCLUDE_DIR) 
+-- aurora: Fetching imgui
+-- Could NOT find SQLite3 (missing: SQLite3_LIBRARY SQLite3_INCLUDE_DIR) 
+-- Could NOT find PkgConfig (missing: PKG_CONFIG_EXECUTABLE) 
+-- aurora: Fetching sqlite3
+-- aurora: Fetching zstd
+-- The ASM compiler identification is Clang with MSVC-like command-line
+-- Found assembler: C:/Program Files/LLVM/bin/clang-cl.exe
+-- ZSTD VERSION: 1.5.7
+-- Performing Test C_FLAG_CLANG_WALL
+-- Performing Test C_FLAG_CLANG_WALL - Success
+-- Performing Test CXX_FLAG_CLANG_WALL
+-- Performing Test CXX_FLAG_CLANG_WALL - Success
+-- Performing Test C_FLAG_WEXTRA
+-- Performing Test C_FLAG_WEXTRA - Success
+-- Performing Test CXX_FLAG_WEXTRA
+-- Performing Test CXX_FLAG_WEXTRA - Success
+-- Performing Test C_FLAG_WUNDEF
+-- Performing Test C_FLAG_WUNDEF - Success
+-- Performing Test CXX_FLAG_WUNDEF
+-- Performing Test CXX_FLAG_WUNDEF - Success
+-- Performing Test C_FLAG_WSHADOW
+-- Performing Test C_FLAG_WSHADOW - Success
+-- Performing Test CXX_FLAG_WSHADOW
+-- Performing Test CXX_FLAG_WSHADOW - Success
+-- Performing Test C_FLAG_WCAST_ALIGN
+-- Performing Test C_FLAG_WCAST_ALIGN - Success
+-- Performing Test CXX_FLAG_WCAST_ALIGN
+-- Performing Test CXX_FLAG_WCAST_ALIGN - Success
+-- Performing Test C_FLAG_WCAST_QUAL
+-- Performing Test C_FLAG_WCAST_QUAL - Success
+-- Performing Test CXX_FLAG_WCAST_QUAL
+-- Performing Test CXX_FLAG_WCAST_QUAL - Success
+-- Performing Test C_FLAG_WSTRICT_PROTOTYPES
+-- Performing Test C_FLAG_WSTRICT_PROTOTYPES - Success
+-- Performing Test C_FLAG_QUNUSED_ARGUMENTS
+-- Performing Test C_FLAG_QUNUSED_ARGUMENTS - Success
+-- Performing Test CXX_FLAG_QUNUSED_ARGUMENTS
+-- Performing Test CXX_FLAG_QUNUSED_ARGUMENTS - Success
+-- Performing Test C_FLAG_WA_NOEXECSTACK
+-- Performing Test C_FLAG_WA_NOEXECSTACK - Failed
+-- Performing Test CXX_FLAG_WA_NOEXECSTACK
+-- Performing Test CXX_FLAG_WA_NOEXECSTACK - Failed
+-- CMAKE_INSTALL_PREFIX: C:/Program Files (x86)/lmport
+-- CMAKE_INSTALL_LIBDIR: lib
+-- ZSTD_LEGACY_SUPPORT defined!
+-- ZSTD_MULTITHREAD_SUPPORT is enabled
+-- Could NOT find Tracy (missing: Tracy_DIR)
+-- aurora: Fetching Tracy
+Parsing public/common/TracyVersion.hpp file
+VERSION 0.14.1
+-- Could NOT find rocprofiler-sdk (missing: rocprofiler-sdk_DIR)
+-- TRACY_ENABLE: OFF
+-- TRACY_ON_DEMAND: ON
+-- TRACY_CALLSTACK: (not set)
+-- TRACY_PLATFORM_HEADER: (not set)
+-- TRACY_NO_CALLSTACK: OFF
+-- TRACY_NO_CALLSTACK_INLINES: OFF
+-- TRACY_ONLY_LOCALHOST: OFF
+-- TRACY_NO_BROADCAST: OFF
+-- TRACY_ONLY_IPV4: OFF
+-- TRACY_NO_CODE_TRANSFER: OFF
+-- TRACY_NO_CONTEXT_SWITCH: OFF
+-- TRACY_NO_EXIT: OFF
+-- TRACY_NO_SAMPLING: OFF
+-- TRACY_NO_WAIT_STACKS: OFF
+-- TRACY_NO_VERIFY: OFF
+-- TRACY_NO_VSYNC_CAPTURE: OFF
+-- TRACY_NO_FRAME_IMAGE: OFF
+-- TRACY_NO_SYSTEM_TRACING: OFF
+-- TRACY_PATCHABLE_NOPSLEDS: OFF
+-- TRACY_MANUAL_LIFETIME: OFF
+-- TRACY_FIBERS: OFF
+-- TRACY_NO_CRASH_HANDLER: OFF
+-- TRACY_TIMER_FALLBACK: OFF
+-- TRACY_DISALLOW_HW_TIMER: OFF
+-- TRACY_LIBUNWIND_BACKTRACE: OFF
+-- TRACY_SYMBOL_OFFLINE_RESOLVE: OFF
+-- TRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT: OFF
+-- TRACY_DEBUGINFOD: OFF
+-- TRACY_IGNORE_MEMORY_FAULTS: OFF
+-- TRACY_OPENGL_AUTO_CALIBRATION: OFF
+-- TRACY_VERBOSE: OFF
+-- TRACY_NO_INTERNAL_MESSAGE: OFF
+-- TRACY_DEMANGLE: OFF
+-- aurora: nod auto-resolved provider: package
+-- aurora: Fetching prebuilt nod package (provider=package, linkage=shared)
+-- LM_DOL not found (D:/a/luigis-mansion-beta/luigis-mansion-beta/Luigis Mansion US/sys/main.dol); skipping the lmrecomp developer build
+-- Configuring done (49.9s)
+-- Generating done (0.5s)
+-- Build files have been written to: D:/a/luigis-mansion-beta/luigis-mansion-beta/build/windows-clang

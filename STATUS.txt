@@ -1,0 +1,5 @@
+tag=beta-0.1.0-8
+sha=fbb9b4d2c9e60f3d524249e0d4c38e037f046566
+configure=success
+build=success
+run=43087743564
