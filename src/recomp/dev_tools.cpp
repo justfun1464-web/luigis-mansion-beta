@@ -294,6 +294,7 @@ HLE(fn_800B172C) {
 // 0xA90 icons (as shipped), -0x300 numbers, 0xFA0 element meter. Reproduced by moving the
 // sprite pointer of the calls made from that loop (return address 0x80043930).
 HLE(fn_8003BEEC) {
+    beta::onSprite(c, c.r[3]);  // LM BETA: dialogue speaker icons (beta_camera.cpp)
     static const int sEnvHud = envInt("LM_DEV_HUD_TEST", -1);
     const int mode = sEnvHud >= 0 ? sEnvHud : port::settings().enhancements.dbgHudTest;
     if (c.lr == VA(0x80043930) && (mode == 2 || mode == 3)) c.r[3] = c.r[3] - 0xA90 + (mode == 2 ? u32(-0x300) : 0xFA0u);

@@ -6,6 +6,7 @@
 // writes) arrive through the write-gather pipe and are appended to Aurora's
 // FIFO unchanged. The console needs no GXEnd; Aurora does, so an open draw is
 // closed before the next GX call.
+#include "recomp/beta.h"
 #include "recomp/efb_copy.h"
 #include "recomp/enhanced_lighting.h"
 #include "recomp/frame.h"
@@ -1612,7 +1613,10 @@ GXHLE(GXSetBlendMode) {
 GXHLE(GXSetDstAlpha) {
     // Ghost pass (fn_80060E70 pass 0x30): r21 is the ghost about to be drawn with this alpha
     // (ghost_lights.cpp: only ghosts actually drawn visibly give light).
-    if (c.lr == VA(0x800611C4) || c.lr == VA(0x800611D4)) ghostlights::onGhostDrawn(c.r[21], c.r[4] & 0xFF);
+    if (c.lr == VA(0x800611C4) || c.lr == VA(0x800611D4)) {
+        ghostlights::onGhostDrawn(c.r[21], c.r[4] & 0xFF);
+        beta::onGhostDrawn(c.r[21], c.r[4] & 0xFF);  // LM BETA: ghost fights (danger music)
+    }
     GXSetDstAlpha(GXBool(c.r[3]), u8(c.r[4]));
 }
 GXHLE(GXSetFog) {

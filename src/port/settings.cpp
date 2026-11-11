@@ -260,6 +260,8 @@ std::vector<Field> fields() {
         flag("unused2", "bordered_view", u.borderedView),
         flag("beta", "hud", u.betaHud),
         flag("beta", "cloth_border", u.clothBorder),
+        flag("beta", "ghost_dialog_cam", u.ghostDialogCam),
+        flag("beta", "danger_music", u.dangerMusic),
         flag("beta", "scare", u.scareFx),
         flag("beta", "title_glow", u.titleGlow),
         flag("beta", "creepy_profiles", u.creepyProfiles),

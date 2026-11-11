@@ -24,8 +24,10 @@ Ce qui change
 - Écran titre de l'E3 2001 (lueur rose).
 - Interface bêta : la tête de Luigi et sa santé en fraction (« 70/100 ») avec les chiffres
   chromés restés inutilisés dans le jeu, une pièce qui tourne et le compteur de pièces.
-- Cadre de vue en tissu vert (la vue « bordée » cachée dans le code), qui s'efface pendant
-  les cinématiques.
+- Caméra inquiétante quand un fantôme parle : pendant les dialogues de fantômes (fantômes,
+  Boos, fantômes des tableaux, Bowser) la caméra penche, oscille et se rapproche, chaque
+  fantôme à sa façon. Les autres dialogues ne changent pas.
+- (Désactivé par défaut) un cadre de vue en tissu vert : F1 > Enhancements > Unused content.
 - Fantôme qui fait peur : « BAHHHH! », brume violette, Luigi peut tomber au sol (peur
   rampante), sa santé est bloquée à 50 pendant 5 secondes (le reste revient ensuite).
 - Surchauffe de l'aspirateur, Poltergust de l'E3 avec ses embouts air/eau, ancien Bogmire,
@@ -44,7 +46,9 @@ Ce qui change
 - Moments du Space World 2000 : le lustre du hall qui s'écrase, les fantômes qui
   jouent aux cartes à la petite table de la salle de billard, et le cercle de fantômes
   qui tourne autour de Luigi dans l'antichambre.
-- Musique de combat bêta : beta_danger remplace la musique des combats de fantômes.
+- Musiques bêta à la place de celles du jeu : le thème principal de l'E3 2001 dans le
+  manoir, « Room Cleared / Lights ON » quand une pièce est rallumée, et « Danger! »
+  pendant les combats contre les fantômes (et quand Luigi en aspire un).
 
 Musiques bêta
 -------------

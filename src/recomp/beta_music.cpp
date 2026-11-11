@@ -9,11 +9,21 @@
 // A replaced sequence is muted voice by voice (its sequence data pointer, learned from
 // Jaq_SetSeqData_Limit), a replaced stream by muting the ring voices; the file plays in their
 // place, mixed into the output at the console's rate with the music volume.
+//
+// Ghost fights: the special entry "danger" plays in place of the mansion music (LuigiSings, 7, on
+// the main handle) while ghosts are out (one drawn visibly in the ghost pass within the last
+// 4 s, no event running), and in place of the ghost-catching music the game switches to while
+// Luigi vacuums one (fn_8018BAC0: Fishing_Zako 19 / Fishing_Event 20). The game's sequence on
+// the main handle is muted meanwhile (its data pointer, recorded at its start).
+//
+// The second handle (room / light layers, e.g. Light.com in a lit room) wins over the main one
+// when both are replaced: it is the layer the game added on top.
 #include "recomp/beta_music.h"
 
 #include "port/install.h"
 #include "port/settings.h"
 #include "recomp/audio.h"
+#include "recomp/beta.h"
 #include "recomp/guest_util.h"
 #include "recomp/hle.h"
 #include "recomp/rarc.h"
@@ -327,6 +337,8 @@ void setSlot(int slot, const std::string& key, const fs::path* file) {
 // ---- muting ------------------------------------------------------------------------------
 constexpr int kMuteSlots = 8;
 std::array<std::atomic<u32>, kMuteSlots> sMuteData{};  // sequence data of replaced sequences
+std::array<std::atomic<u32>, 128> sSeqData{};          // sequence index -> data of its last start
+std::atomic<u32> sDangerMute{0};                        // data muted while "danger" plays
 std::atomic<bool> sMuteStreams{false};
 std::atomic<int64_t> sLastRingNs{0};
 std::string sStreamKey;  // guest thread
@@ -360,6 +372,11 @@ void noteSequence(u32 data, u32 size) {
     if (!sConfigured || !data) return;
     const int index = indexForData(data, size);
     const bool replaced = index > 0 && fileForSeq(index) != nullptr;
+    for (auto& s : sSeqData) {
+        u32 d = data;
+        s.compare_exchange_strong(d, 0);
+    }
+    if (index > 0 && index < int(sSeqData.size())) sSeqData[size_t(index)] = data;
     // forget this buffer's previous sequence, then remember it if replaced
     for (auto& m : sMuteData) {
         u32 d = data;
@@ -385,6 +402,7 @@ void noteFileOpen(const char* path) {
 
 bool muteSequence(u32 seqData) {
     if (!seqData) return false;
+    if (seqData == sDangerMute.load(std::memory_order_relaxed)) return true;
     for (const auto& m : sMuteData)
         if (m.load(std::memory_order_relaxed) == seqData) return true;
     return false;
@@ -404,10 +422,17 @@ void frame(Ctx&) {
         return (id & 0x80000000u) ? int(id & 0xFFFF) : -1;
     };
     const int main = handleIndex(VA(0x804D91A4)), sub = handleIndex(VA(0x804D91A8));
+    // Ghost fights (see the top of the file); 120 game frames = 4 s after the last ghost seen.
+    const fs::path* danger = port::settings().unused2.dangerMusic ? fileFor("danger") : nullptr;
+    const bool fishing = main == 19 || main == 20;
+    const bool ghostsOut = beta::framesSinceGhostSeen() <= 120 && !beta::inEvent();
+    const bool dangerOn = danger && (fishing || (main == 7 && ghostsOut && sub <= 0));
+    sDangerMute = dangerOn && main > 0 && main < int(sSeqData.size()) ? sSeqData[size_t(main)].load() : 0u;
     int playing = -1;
-    if (main > 0 && fileForSeq(main)) playing = main;
-    else if (sub > 0 && fileForSeq(sub)) playing = sub;
-    if (playing > 0) setSlot(0, keyOf(sSeqs[size_t(playing)].name), fileForSeq(playing));
+    if (sub > 0 && fileForSeq(sub)) playing = sub;
+    else if (main > 0 && fileForSeq(main)) playing = main;
+    if (dangerOn) setSlot(0, "danger", danger);
+    else if (playing > 0) setSlot(0, keyOf(sSeqs[size_t(playing)].name), fileForSeq(playing));
     else setSlot(0, "", nullptr);
     // Streams: while ring voices play (within the last 0.6 s).
     const bool streaming = nowNs() - sLastRingNs.load(std::memory_order_relaxed) < 600'000'000;

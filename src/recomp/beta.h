@@ -23,5 +23,12 @@ void hudFrame(Ctx& c);           // once per game frame
 // beta_gbh.cpp: Game Boy Horror ghost profiles rewritten (once per game frame)
 void gbhFrame(Ctx& c);
 bool borderRect(int& x, int& y, int& w, int& h);  // view 0's rectangle with the cloth border
+bool inEvent();                  // the event interpreter runs a script (cutscene, dialogue)
+// beta_camera.cpp: the camera while a ghost speaks
+void onSprite(Ctx& c, u32 sprite);  // fn_8003BEEC draws a sprite (dialogue speaker icons)
+void onViewMatrix(u32 cam);         // fn_8000853C built a camera's view matrix
+// Ghost pass (hle_gx.cpp GXSetDstAlpha): `actor` drawn with ghost-layer alpha `alpha`
+void onGhostDrawn(u32 actor, u32 alpha);
+u32 framesSinceGhostSeen();      // game frames since a ghost was last drawn visibly (~0u: never)
 
 }  // namespace recomp::beta

@@ -13,7 +13,10 @@ Deux façons de choisir ce qu'un fichier remplace :
        Demo_Entrance.ogg   l'arrivée devant le manoir
        OyamaLab.ogg        le laboratoire du professeur
        GoodNight.ogg       la fin de partie (« Good night! »)
-       Fishing_Zako.ogg    les combats contre les fantômes ordinaires
+       Fishing_Zako.ogg    quand Luigi aspire un fantôme ordinaire
+       LuigiSings.ogg      le thème principal du manoir (pièces sombres, couloirs)
+       danger.ogg          (spécial) les combats : tant que des fantômes sont sortis et
+                           attaquent, et pendant l'aspiration ; remplace le thème du manoir
        TMansion.ogg        l'ambiance du manoir (flux audio)
        TMOpen.ogg          l'introduction (flux audio)
 

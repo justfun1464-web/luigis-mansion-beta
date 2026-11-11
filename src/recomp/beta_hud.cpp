@@ -350,6 +350,18 @@ void hudFrame(Ctx& c) {
     }
 }
 
+bool inEvent() { return eventRunning(); }
+
+namespace {
+u32 sGhostSeen = 0;  // game frame + 1 a ghost was last drawn visibly (0: never)
+}
+
+void onGhostDrawn(u32 actor, u32 alpha) {
+    if (gu::inMem1(actor) && alpha >= 32) sGhostSeen = skip::guestFrames() + 1;
+}
+
+u32 framesSinceGhostSeen() { return sGhostSeen ? skip::guestFrames() + 1 - sGhostSeen : ~0u; }
+
 // View 0's rectangle for the cloth border's slide (fn_80010F20, after the game set it).
 bool borderRect(int& x, int& y, int& w, int& h) {
     if (!opts().clothBorder) return false;

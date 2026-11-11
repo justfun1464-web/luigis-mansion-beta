@@ -220,6 +220,13 @@ void unusedSection(UnusedGroup group) {
             "above 50 comes back afterwards.");
         sDirty |= recomp::menu::Checkbox("E3 title glow", &u.titleGlow);
         tip("A slow pink glow over the title screen, as in the E3 2001 build.");
+        sDirty |= recomp::menu::Checkbox("Ghost dialogue camera", &u.ghostDialogCam);
+        tip("While a ghost speaks (a dialogue window with a ghost's portrait: ghosts, Boos, the\n"
+            "portrait ghosts, Bowser), the camera slowly tilts, sways and closes in, each ghost its\n"
+            "own way. Nothing changes during other dialogues.");
+        sDirty |= recomp::menu::Checkbox("Danger music in ghost fights", &u.dangerMusic);
+        tip("With a file for \"danger\" in beta\\music\\music.ini, it plays instead of the mansion\n"
+            "music while ghosts are out and fighting Luigi, and while he vacuums one.");
         sDirty |= recomp::menu::Checkbox("Creepy ghost profiles", &u.creepyProfiles);
         tip("The Game Boy Horror's profiles of the portrait ghosts are rewritten: the legend of the\n"
             "\"creepy GBH scans\". Takes effect when the Game Boy Horror next loads them.");

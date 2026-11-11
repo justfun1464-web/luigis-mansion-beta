@@ -638,6 +638,16 @@ void onGhostInBeam(uint32_t actor) {
 
 bool worldToView(const float world[3], float view[3]) {
     const u32 cam = VA(0x803A3820);
+    // The GX view matrix the frame is drawn with (+0x18C, +0x198 on PAL: MTXLookAt of the
+    // camera's eye, up and target, fn_8000853C; the LM BETA ghost dialogue camera turns it
+    // afterwards, beta_camera.cpp), so the lights stay where the scene is drawn.
+    float m[12];
+    for (int i = 0; i < 12; i++) m[i] = rdf32(cam + VOFF(0x18C, 0x198) + 4 * i);
+    const float s0 = m[0] * m[0] + m[1] * m[1] + m[2] * m[2];
+    if (std::isfinite(s0) && s0 > 0.5f && s0 < 2.0f) {
+        for (int r = 0; r < 3; r++) view[r] = m[4 * r] * world[0] + m[4 * r + 1] * world[1] + m[4 * r + 2] * world[2] + m[4 * r + 3];
+        return true;
+    }
     const float eye[3] = {rdf32(cam + kCamViewEye), rdf32(cam + kCamViewEye + 4), rdf32(cam + kCamViewEye + 8)};
     const float at[3] = {rdf32(cam + kCamViewTarget), rdf32(cam + kCamViewTarget + 4), rdf32(cam + kCamViewTarget + 8)};
     // MTXLookAt with up (0, 1, 0): z = normalize(eye - target), x = normalize(up x z), y = z x x.

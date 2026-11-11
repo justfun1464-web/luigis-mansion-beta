@@ -302,7 +302,9 @@ struct Unused2Settings {
     bool borderedView = false;  // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
     // Luigi's Mansion BETA (src/recomp/beta_hud.cpp)
     bool betaHud = true;      // Luigi's head + "HP/MAX" in the unused chrome digits + spinning coin counter
-    bool clothBorder = true;  // green cloth around the bordered view, sliding off in event scenes
+    bool clothBorder = false;  // green cloth frame around the 3D view, sliding off in event scenes
+    bool ghostDialogCam = true;  // the camera turns while a ghost speaks (beta_camera.cpp)
+    bool dangerMusic = true;     // beta/music "danger" plays while ghosts fight Luigi (beta_music.cpp)
     bool scareFx = true;      // "BAHHHH!" + purple mist when a ghost startles Luigi (health held at 50 for 5 s)
     bool titleGlow = true;    // pink glow over the title screen (E3 2001)
     bool creepyProfiles = true;  // the Game Boy Horror's ghost profiles rewritten (beta_gbh.cpp)
