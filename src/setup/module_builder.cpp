@@ -272,6 +272,9 @@ bool moduleUpToDate(const Disc& disc) {
 bool findToolchain(std::filesystem::path& clang, std::filesystem::path& lld, std::string& error) {
     const char* exe = kExeSuffix;
     std::vector<std::filesystem::path> dirs{exeDir() / "llvm" / "bin"};
+    // Luigi's Mansion BETA: a copy placed inside a Luigi's Mansion Recompiled folder can use
+    // that folder's compiler.
+    dirs.emplace_back(exeDir().parent_path() / "llvm" / "bin");
     if (const char* env = std::getenv("LM_LLVM_DIR")) dirs.emplace_back(env);
 #ifdef LM_DEV_LLVM_DIR
     dirs.emplace_back(LM_DEV_LLVM_DIR);

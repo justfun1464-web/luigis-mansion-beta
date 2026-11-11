@@ -100,10 +100,10 @@ struct EnhancementSettings {
     bool gbhTracker = false;       // unused GBH ghost tracker, cycled in game with D-pad Down (off/far/close)
     bool gbhCamera = true;  // LM BETA default        // unused Game Boy Horror live camera, toggled in game with D-pad Up (docs/UNUSED_CONTENT.md)
     bool betaSkybox = true;  // LM BETA default            // unused sky in the game archive (iwamoto/vrbox) on map 2
-    bool heartDoor = false;             // unused heart door (type 07) on Chauncey's room
-    bool starDoor = false;              // unused star door (type 08) on the Twins' room
+    bool heartDoor = true;  // LM BETA default  // unused heart door (type 07) on Chauncey's room
+    bool starDoor = true;  // LM BETA default  // unused star door (type 08) on the Twins' room
     bool betaMapLuigi = true;  // LM BETA default          // unused full Luigi model on the Game Boy Horror map
-    bool unusedPortraitModels = false;  // each ghost's own model in the Portrificationizer scene
+    bool unusedPortraitModels = true;  // LM BETA default  // each ghost's own model in the Portrificationizer scene
     bool earlyLuigi = false;            // unused early Luigi model /model/luige.szp (src/recomp/early_luigi.cpp)
     bool airWaterNozzles = true;  // LM BETA default       // unused wpair/wpwater Poltergust nozzles (src/recomp/nozzles.cpp)
     bool earlyPoltergust = true;  // LM BETA default       // E3 2001 Poltergust body /model/vbody.szp (src/recomp/unused_models.cpp)
@@ -316,8 +316,8 @@ struct Unused2Settings {
     int overheatDamage = 10;            // health lost when it catches fire, 0..50
     bool endingPictures = true;  // LM BETA default   // unused Luigi pictures (luigi_V/g/b) on the ending rank screen
     bool ghostPlacements = false;  // unused ghost placements (Slim in the Hidden Room, Mr. Bones in the Courtyard, ...)
-    bool pinkMice = false;         // mice use the unused pink variant (rat2)
-    bool blueGhostGuys = false;    // Ghost Guys use the unused blue/cyan colour sets (heypo9/heypo10 .prm)
+    bool pinkMice = true;  // LM BETA default  // mice use the unused pink variant (rat2)
+    bool blueGhostGuys = true;  // LM BETA default  // Ghost Guys use the unused blue/cyan colour sets (heypo9/heypo10 .prm)
     bool extraSpeedySpirits = false;  // Speedy Spirits 16-20 at invented spots (NOT original placements)
 };
 
