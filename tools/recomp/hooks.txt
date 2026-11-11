@@ -402,3 +402,11 @@ patch 62 8009EB40 C002999C jp
 patch 62 8009EB6C C002999C jp
 patch 63 8009EB40 C00299A8 jp
 patch 63 8009EB6C C00299A8 jp
+
+# Luigi's Mansion BETA (src/recomp/beta_hud.cpp): the health meter's heart (fn_8003C250) and
+# number (fn_8003FAC0) draws, the in-game HUD (fn_8003E3D0: cloth border, scare overlay) and the
+# title screen draw (pink glow). USA game only.
+fn_8003C250
+fn_8003FAC0
+fn_8003E3D0
+draw__10TitleSceneFv

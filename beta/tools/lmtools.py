@@ -355,7 +355,7 @@ class Archive:
 def jmp_hash(name: str) -> int:
     h = 0
     for ch in name.encode("shift_jis"):
-        h = (ch + (h << 8)) % 0x1FFFFD9
+        h = (ch + ((h << 8) & 0xFFFFFFFF)) % 0x1FFFFD9  # u32 shift, as the game
     return h
 
 
@@ -365,7 +365,8 @@ cond_arg0 cond_arg1 cond_arg2 do_type string_arg0 string_arg1 int_arg0 int_arg1 
 EventFlag EventNo EventIf EventLock EventArea EventLoad disappear_flag appear_flag invisible
 EnemyActType furniture_name furniture_type room_no generate_num next_fast_wait generate_wait
 open_type door_type door_model DoorType item_name itemappear_flag telesa_hp flag_id loop
-pos_x pos_y pos_z CameraNo""".split()
+pos_x pos_y pos_z CameraNo CodeName access_name cond_string_arg0 arg0 arg1 arg2 arg3 arg4 arg5
+CharacterName EventTime event_parameter PlayerStop char_lock_ghost OpenDoorNo stay attack_type event_set_no""".split()
 
 
 class Jmp:
@@ -605,13 +606,64 @@ def encode_rgb5a3(img):
     return bytes(out)
 
 
-def make_bti(img, fmt=6, wrap_s=0, wrap_t=0, min_filter=1, mag_filter=1):
-    """Build a single-image BTI (RGBA8 or RGB5A3) from an HxWx4 array."""
+def encode_ia8(img):
+    """HxWx4 -> GX IA8 (intensity = luminance, alpha = alpha), 4x4 tiles."""
     h, w = img.shape[:2]
-    data = encode_rgba8(img) if fmt == 6 else encode_rgb5a3(img)
+    out = bytearray()
+    for by in range(0, h, 4):
+        for bx in range(0, w, 4):
+            for py in range(4):
+                for px in range(4):
+                    Y, X = by + py, bx + px
+                    if Y < h and X < w:
+                        r, g, b, a = (int(v) for v in img[Y, X])
+                    else:
+                        r = g = b = a = 0
+                    i = (r * 77 + g * 150 + b * 29) >> 8
+                    out += bytes((a, i))
+    return bytes(out)
+
+
+def encode_rgb565(img):
+    h, w = img.shape[:2]
+    out = bytearray()
+    for by in range(0, h, 4):
+        for bx in range(0, w, 4):
+            for py in range(4):
+                for px in range(4):
+                    Y, X = by + py, bx + px
+                    r, g, b = (int(v) for v in img[Y, X][:3]) if Y < h and X < w else (0, 0, 0)
+                    out += struct.pack(">H", (r >> 3) << 11 | (g >> 2) << 5 | (b >> 3))
+    return bytes(out)
+
+
+def encode_i8(img):
+    """HxWx4 (or HxW) -> GX I8, 8x4 tiles."""
+    h, w = img.shape[:2]
+    out = bytearray()
+    for by in range(0, h, 4):
+        for bx in range(0, w, 8):
+            for py in range(4):
+                for px in range(8):
+                    Y, X = by + py, bx + px
+                    if Y < h and X < w:
+                        v = img[Y, X]
+                        out.append(int(v if img.ndim == 2 else (int(v[0]) * 77 + int(v[1]) * 150 + int(v[2]) * 29) >> 8))
+                    else:
+                        out.append(0)
+    return bytes(out)
+
+
+ENCODERS = {3: encode_ia8, 4: encode_rgb565, 5: encode_rgb5a3, 6: encode_rgba8, 1: encode_i8}
+
+
+def make_bti(img, fmt=6, wrap_s=0, wrap_t=0, min_filter=1, mag_filter=1):
+    """Build a single-image BTI (I8, IA8, RGB565, RGB5A3 or RGBA8) from an HxWx4 array."""
+    h, w = img.shape[:2]
+    data = ENCODERS[fmt](img)
     hdr = bytearray(0x20)
     hdr[0] = fmt
-    hdr[1] = 0  # alpha
+    hdr[1] = 1 if fmt in (3, 5, 6) else 0  # alpha
     struct.pack_into(">HH", hdr, 2, w, h)
     hdr[6] = wrap_s
     hdr[7] = wrap_t

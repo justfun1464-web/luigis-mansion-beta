@@ -35,6 +35,7 @@
 // is the element meter, shown with the fire colours while the heat is above zero.
 #include "port/install.h"
 #include "port/settings.h"
+#include "recomp/beta.h"
 #include "recomp/coop.h"
 #include "recomp/dev_tools.h"
 #include "recomp/gameplay.h"
@@ -472,6 +473,7 @@ HLE(fn_800AEEA8) {
         return;
     }
     gameplay::callLuigiMessage(c);  // gameplay_hooks.cpp (Luigi's health, recovery hearts)
+    if (id == 2 && c.r[3]) beta::onStartle(c, l);  // Luigi's Mansion BETA: scare overlay (beta_hud.cpp)
     if (id == 2 && c.r[3] && crawlOn() && gptr(msg)) {
         const u32 src = gu::call(c, GU_SYM("fn_800AD504"), {rd32(msg + 4), rd32(msg + 8)});
         if (gptr(src)) {

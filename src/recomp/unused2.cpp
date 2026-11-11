@@ -6,6 +6,7 @@
 
 #include "port/install.h"
 #include "port/settings.h"
+#include "recomp/beta.h"
 #include "recomp/coop.h"
 #include "recomp/dev_tools.h"
 #include "recomp/guest_util.h"
@@ -155,6 +156,17 @@ HLE(fn_80010F20) {
         }
     }
     callOriginal(c, "fn_80010F20");
+    // Luigi's Mansion BETA: the cloth border slides off in event scenes (beta_hud.cpp).
+    int bx, by, bw, bh;
+    if (g_patches[50] && beta::borderRect(bx, by, bw, bh)) {
+        const u32 v0 = rd32(VA(0x803A4C80));
+        if (gu::inMem1(v0)) {
+            wr32(v0 + 0xD0, u32(bx));
+            wr32(v0 + 0xD4, u32(by));
+            wr32(v0 + 0xD8, u32(bw));
+            wr32(v0 + 0xDC, u32(bh));
+        }
+    }
 }
 }  // namespace recomp
 
@@ -194,6 +206,19 @@ void unusedSection(UnusedGroup group) {
         sDirty |= recomp::menu::Checkbox("Bordered view", &u.borderedView);
         tip("The game's view setup has a third, unused layout: a fixed 560x400 3D view (40,30 to\n"
             "560,430) with a black border, like a TV-safe window. The HUD stays where it is.");
+        ImGui::SeparatorText("Luigi's Mansion BETA");
+        sDirty |= recomp::menu::Checkbox("BETA health meter", &u.betaHud);
+        tip("Luigi's head and his health as a fraction (\"70/100\") in the chrome digits left unused in\n"
+            "the game archive, with a spinning coin and the coins Luigi carries above it.");
+        sDirty |= recomp::menu::Checkbox("Green cloth border", &u.clothBorder);
+        tip("With the bordered view, the frame around the 3D view is green cloth, and it slides off\n"
+            "during event scenes (the view grows to the whole screen and back).");
+        sDirty |= recomp::menu::Checkbox("Scare effect (BAHHHH!)", &u.scareFx);
+        tip("When a ghost startles Luigi, a purple mist rolls over the screen and \"BAHHHH!\" pops up.\n"
+            "For 5 seconds his health is held at 50 at most (shown in purple out of 50); what was\n"
+            "above 50 comes back afterwards.");
+        sDirty |= recomp::menu::Checkbox("E3 title glow", &u.titleGlow);
+        tip("A slow pink glow over the title screen, as in the E3 2001 build.");
         sDirty |= recomp::menu::Checkbox("Ending pictures of Luigi", &u.endingPictures);
         tip("The ending's rank screen shows one of three unused pictures of Luigi next to its\n"
             "message: sitting with a flower (ranks H to D), one V sign (C, B) or two V signs (A).");

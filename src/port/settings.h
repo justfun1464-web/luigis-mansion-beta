@@ -300,6 +300,11 @@ struct Unused2Settings {
     bool playAsMario = false;      // the player uses the unused bmario model (play_as_mario.cpp)
     bool marioP2 = false;          // 2-player mode: player 2 is Mario
     bool borderedView = true;  // LM BETA default     // fixed 560x430 bordered 3D view (hidden code at 0x80010FD4)
+    // Luigi's Mansion BETA (src/recomp/beta_hud.cpp)
+    bool betaHud = true;      // Luigi's head + "HP/MAX" in the unused chrome digits + spinning coin counter
+    bool clothBorder = true;  // green cloth around the bordered view, sliding off in event scenes
+    bool scareFx = true;      // "BAHHHH!" + purple mist when a ghost startles Luigi (health held at 50 for 5 s)
+    bool titleGlow = true;    // pink glow over the title screen (E3 2001)
     bool poisonState = false;      // poison mushroom poisons (doku_* animations, slow health loss) instead of shrinking
     float poisonDamage = 25.0f;    // total health lost, 1..100
     float poisonSeconds = 5.0f;    // over this many seconds, 1..20
@@ -309,7 +314,7 @@ struct Unused2Settings {
     float overheatCoolSeconds = 30.0f;  // full meter back to empty while idle, 5..120
     float overheatBlowCool = 3.0f;      // cooling speed multiplier while blowing air (L), 1..10
     int overheatDamage = 10;            // health lost when it catches fire, 0..50
-    bool endingPictures = false;   // unused Luigi pictures (luigi_V/g/b) on the ending rank screen
+    bool endingPictures = true;  // LM BETA default   // unused Luigi pictures (luigi_V/g/b) on the ending rank screen
     bool ghostPlacements = false;  // unused ghost placements (Slim in the Hidden Room, Mr. Bones in the Courtyard, ...)
     bool pinkMice = false;         // mice use the unused pink variant (rat2)
     bool blueGhostGuys = false;    // Ghost Guys use the unused blue/cyan colour sets (heypo9/heypo10 .prm)

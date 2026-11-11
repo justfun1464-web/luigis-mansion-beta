@@ -7,6 +7,7 @@ namespace recomp::beta {
 
 void onFrame(Ctx& c) {
     beta_music::frame(c);
+    hudFrame(c);
 }
 
 void onMapSetup(Ctx&) {}

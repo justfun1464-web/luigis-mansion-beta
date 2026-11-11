@@ -1,5 +1,7 @@
 #include "recomp/widescreen.h"
 
+#include "recomp/beta.h"
+
 #include "port/install.h"
 #include "port/options.h"
 #include "port/settings.h"
@@ -456,7 +458,9 @@ HLE(J2DFillBox__FiiiiQ28JUtility6TColor) {
 // (fn_80041214, a projected position): that call opens a centered scope.
 HLE(fn_800417F8) {
     AnchorScope s(-1);
+    beta::meterBegin();  // Luigi's Mansion BETA: beta_hud.cpp replaces the heart and number
     callOriginal(c, "fn_800417F8");
+    beta::meterEnd(c);
 }
 
 }  // namespace recomp::ws
